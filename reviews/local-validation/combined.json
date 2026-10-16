@@ -1,170 +1,354 @@
 {
   "schema_version": 1,
   "status": "passed",
-  "generated_utc": "2026-10-16T07:13:42.765495+00:00",
+  "generated_utc": "2026-10-16T07:25:11.996598+00:00",
   "operations": {
     "initial-vm-state": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.3431003330042586,
+      "elapsed_s": 0.22998212501988746,
       "log": "initial-vm-state.txt",
-      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "log_sha256": "d0525406e8a512adf91933e382007334f50b29b73e9693d78d615c6ef204b0d3",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/colima",
+        "list",
+        "--json"
+      ]
     },
     "base-commit": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.020454541983781382,
+      "elapsed_s": 0.020719166001072153,
       "log": "base-commit.txt",
-      "log_sha256": "fa4884b968112c3d9c0d9f30da11ca5ee59d58fbcf78f02e3a4ac330d91af403"
+      "log_sha256": "0dab7c8042f3d2b50a34c5f962437774acab7452ae334d8ce1ff9e7fd2797463",
+      "reclaimed_orphans": 0,
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
     },
     "native-venv": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 1.4868192500143778,
+      "elapsed_s": 1.5218306249880698,
       "log": "native-venv.txt",
-      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/.venv/bin/python",
+        "-m",
+        "venv",
+        "<repo>/results/local/validation-audit-20261016/native-env"
+      ]
     },
     "native-install": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.986564124992583,
+      "elapsed_s": 0.9441398339986335,
       "log": "native-install.txt",
-      "log_sha256": "c7bd61f2676fc823fc0db687ff646bb9fa24650c1a2a940a566259ee6b4f311d"
+      "log_sha256": "c9c6ede557dcecc4a1134446129f3b185cd371fb4dcb9ccc692c01cc3db40612",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/validation-audit-20261016/native-env/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "-r",
+        "requirements-dev.txt"
+      ]
     },
     "native-driver": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 39.61690562500735,
+      "elapsed_s": 41.553832749981666,
       "log": "native-driver.txt",
-      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/validation-audit-20261016/native-env/bin/python",
+        "-m",
+        "tools.validation_suite",
+        "--output",
+        "<repo>/results/local/validation-audit-20261016/native",
+        "--environment",
+        "native-macos"
+      ]
     },
     "vm-start": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 21.21111312499852,
+      "elapsed_s": 21.67812108399812,
       "log": "vm-start.txt",
-      "log_sha256": "6bea763bf1887aa45984388ecc92852f18f80becff25561712ea96ef228a17fe"
+      "log_sha256": "91e658f1a7821cbbbc872e4ee0d91aac102cd9de9e420a7c01e57704bdf5cc1a",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/colima",
+        "start",
+        "dns",
+        "--cpu",
+        "4",
+        "--memory",
+        "6",
+        "--disk",
+        "30",
+        "--vm-type",
+        "vz",
+        "--runtime",
+        "docker",
+        "--mount",
+        "none",
+        "--activate=false",
+        "--ssh-config=false",
+        "--ssh-agent=false",
+        "--vz-rosetta=false",
+        "--binfmt=false"
+      ]
     },
     "docker-info": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.1254762500175275,
+      "elapsed_s": 0.12891462500556372,
       "log": "docker-info.txt",
-      "log_sha256": "bad90a66b6d2d8b287e39c75c22c4466f55f67b13261f205d302446c08833df7"
+      "log_sha256": "f49cc45d03c33d162d2302f8795dd0d943f0f5059387478fd0f0b1ad3978e43f",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/docker",
+        "info",
+        "--format",
+        "{{json .}}"
+      ]
     },
     "colima-version": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.28005370902246796,
+      "elapsed_s": 0.23437175000435673,
       "log": "colima-version.txt",
-      "log_sha256": "1e2b405deba8d7c74cd2004a8cbefd7ee17b208a6b03bfc4ebf59ddfc2f20299"
+      "log_sha256": "1e2b405deba8d7c74cd2004a8cbefd7ee17b208a6b03bfc4ebf59ddfc2f20299",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/colima",
+        "version"
+      ]
     },
     "lima-version": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.020675457984907553,
+      "elapsed_s": 0.03795433300547302,
       "log": "lima-version.txt",
-      "log_sha256": "cc3d40a6c7ac3172ad74fd8735aafa70e78c2d3b8bc9d866e05bacb39412cd07"
+      "log_sha256": "cc3d40a6c7ac3172ad74fd8735aafa70e78c2d3b8bc9d866e05bacb39412cd07",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/limactl",
+        "--version"
+      ]
     },
     "image-build": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 8.22075158401276,
+      "elapsed_s": 4.181688250013394,
       "log": "image-build.txt",
-      "log_sha256": "8a8c66ab8cf36f4aee95e71843637fe4187002ca93cd3ccaf0d2a2b7c26a30cd"
+      "log_sha256": "77074a13e145d9fa28f2e7cedf46cee0bcb42b9c3452241db5eaa6e6530f9de2",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/docker",
+        "build",
+        "--load",
+        "-t",
+        "tiny-dns-validation:04f05167c398480d9f1a04ae51ea38c2",
+        "<repo>/results/local/validation-audit-20261016/context"
+      ]
     },
     "image-info": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.03976520799915306,
+      "elapsed_s": 0.039061165996827185,
       "log": "image-info.txt",
-      "log_sha256": "daa92e0c6b01b436234a449fdf43ffc02345aac256fbdfc00bcf67f3dc71f129"
+      "log_sha256": "bf65e27747cc2681866e77cc2510bcb40171d0abdced729ac529525ccf1309a1",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/docker",
+        "image",
+        "inspect",
+        "tiny-dns-validation:04f05167c398480d9f1a04ae51ea38c2"
+      ]
     },
     "container-create": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.07377904199529439,
+      "elapsed_s": 0.12301466599456035,
       "log": "container-create.txt",
-      "log_sha256": "f2005e6f811f92de3683c816fbf33567ed2e4b7cf03e450a7aabd4772cfa0386"
+      "log_sha256": "4b4fbb1d4a125d8e492f907f54635993e4c38ba11ef3bcd7cf2f214240edd8ae",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/docker",
+        "create",
+        "--name",
+        "tiny-dns-validation-04f05167c398480d9f1a04ae51ea38c2",
+        "--label",
+        "tiny-dns.validation.run=04f05167c398480d9f1a04ae51ea38c2",
+        "--network",
+        "none",
+        "--cap-drop",
+        "ALL",
+        "--security-opt",
+        "no-new-privileges",
+        "--cpus",
+        "4",
+        "--memory",
+        "4g",
+        "tiny-dns-validation:04f05167c398480d9f1a04ae51ea38c2",
+        "--output",
+        "/evidence/run",
+        "--environment",
+        "colima-linux"
+      ]
     },
     "container-info": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.02003720900393091,
+      "elapsed_s": 0.019309875002363697,
       "log": "container-info.txt",
-      "log_sha256": "3509c99219eb2c121ace649fab1864a9e9e4a44cc3ad022cc3756759cc855cb8"
+      "log_sha256": "62c2fc7f09edd655f90686cee2834ef87cf7f280122e0889ef2193fb96d4ae24",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/docker",
+        "inspect",
+        "tiny-dns-validation-04f05167c398480d9f1a04ae51ea38c2"
+      ]
     },
     "linux-driver": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 40.165801458992064,
+      "elapsed_s": 47.35978570798761,
       "log": "linux-driver.txt",
-      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/docker",
+        "start",
+        "--attach",
+        "tiny-dns-validation-04f05167c398480d9f1a04ae51ea38c2"
+      ]
     },
     "container-exit": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.02027687500230968,
+      "elapsed_s": 0.0202202920045238,
       "log": "container-exit.txt",
-      "log_sha256": "c1fc3eb698d3d5fa650066b412afce0453071f6362f7f119f41150104fec8948"
+      "log_sha256": "b032f05703ce8e20d1849cba26c9a922697d82fc22b3c8390f8e7ed98e5bf48c",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/docker",
+        "inspect",
+        "tiny-dns-validation-04f05167c398480d9f1a04ae51ea38c2"
+      ]
     },
     "linux-export": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.07079641698510386,
+      "elapsed_s": 0.12216162501135841,
       "log": "linux-export.txt",
-      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/docker",
+        "cp",
+        "tiny-dns-validation-04f05167c398480d9f1a04ae51ea38c2:/evidence/run",
+        "<repo>/results/local/validation-audit-20261016/linux"
+      ]
     },
     "cleanup-owned": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.017929291003383696,
+      "elapsed_s": 0.03810291699483059,
       "log": "cleanup-owned.txt",
-      "log_sha256": "0cd9df4165e3e25e12888f2e8a4e9530b5ce6c6b48cf69e6743b9d16200f8259"
+      "log_sha256": "4eea65f598edc925f1951ca5ad2faeceb243066d7bd065cf9348939ca46d63f7",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/docker",
+        "ps",
+        "-aq",
+        "--filter",
+        "label=tiny-dns.validation.run=04f05167c398480d9f1a04ae51ea38c2"
+      ]
     },
     "cleanup-inspect": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.019974707975052297,
+      "elapsed_s": 0.02076583300367929,
       "log": "cleanup-inspect.txt",
-      "log_sha256": "c1fc3eb698d3d5fa650066b412afce0453071f6362f7f119f41150104fec8948"
+      "log_sha256": "b032f05703ce8e20d1849cba26c9a922697d82fc22b3c8390f8e7ed98e5bf48c",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/docker",
+        "inspect",
+        "45bdb23e449d"
+      ]
     },
     "cleanup-remove": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.018980875000124797,
+      "elapsed_s": 0.03403091602376662,
       "log": "cleanup-remove.txt",
-      "log_sha256": "0cd9df4165e3e25e12888f2e8a4e9530b5ce6c6b48cf69e6743b9d16200f8259"
+      "log_sha256": "4eea65f598edc925f1951ca5ad2faeceb243066d7bd065cf9348939ca46d63f7",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/docker",
+        "rm",
+        "45bdb23e449d"
+      ]
     },
     "cleanup-remaining": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.01918633299646899,
+      "elapsed_s": 0.018209542002296075,
       "log": "cleanup-remaining.txt",
-      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/docker",
+        "ps",
+        "-aq",
+        "--filter",
+        "label=tiny-dns.validation.run=04f05167c398480d9f1a04ae51ea38c2"
+      ]
     },
     "vm-stop": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 2.419923833978828,
+      "elapsed_s": 2.3261022080259863,
       "log": "vm-stop.txt",
-      "log_sha256": "052b84f08f87317976cc933dfae3eb2c74312b48afd9e379a5f0a5754e8afcad"
+      "log_sha256": "725ca3b528eb25d90d6423058720d077078cf59435a70a923e7dbfa892b59147",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/colima",
+        "stop",
+        "dns"
+      ]
     },
     "final-vm-state": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.23879450000822544,
+      "elapsed_s": 0.28671320900321007,
       "log": "final-vm-state.txt",
-      "log_sha256": "d0525406e8a512adf91933e382007334f50b29b73e9693d78d615c6ef204b0d3"
+      "log_sha256": "d0525406e8a512adf91933e382007334f50b29b73e9693d78d615c6ef204b0d3",
+      "reclaimed_orphans": 0,
+      "command": [
+        "<repo>/results/local/toolchain/bin/colima",
+        "list",
+        "--json"
+      ]
     }
   },
   "scope": "Native macOS and Colima Linux VM measured separately; process RSS excludes VM/kernel/client/peer memory.",
-  "initial_vm_state": "Absent",
+  "initial_vm_state": "Stopped",
   "input_files": {
     ".github/dependabot.yml": "c270cc5fe59835154593bd210a5c006b5c33de5297163b6362c6e45e69d0b26e",
     ".github/workflows/ci.yml": "3e03de5f3ba73eab5c429223fca9268ba989ff0ce793ba193376c67d67a651b4",
     ".gitignore": "c6b0029adc80991ba037bc284c45ea694c1c2145569a33f2d2fcc364e5503bfd",
-    "README.md": "e6841a0a9a5276d319f01f769cf3fb479f9d90c09273cb8a0d16f8c9a97f6c83",
+    "README.md": "36641079caaec626f6831e38dd0487d4fe7628751c42c87edf046181547d00c0",
     "SECURITY.md": "2954480b815e2ccac9de7879b44109ce90cdda1224952a49b56972be1765a180",
     "THIRD_PARTY_NOTICES.md": "2c81bb8307bcf804776caead4b1cf1d471aafcff4a3deeee33bccbb5f399347e",
     "containers/validation.Dockerfile": "f131e4283c80ae27f5ac0a65a3f92690de003ef6ea37209eede76b2bda3ff3b1",
@@ -174,7 +358,7 @@
     "dnsrouter/config.py": "2677f08131a8836a0ba823387218313dfad8fcad58a83308be462630d69e9a59",
     "dnsrouter/service.py": "96a8aee03909f07440ddd9d9888ce417947eaeb3bb844ba2d632f7ad2406dee9",
     "docs/ARCHITECTURE.md": "9e15f0b8efba3fc4aa7351cb79c411622b49ea85e7df3b418413d2bd6fe7fcb3",
-    "docs/LOCAL_VALIDATION.md": "673e45b1936be84cfd12c88819335021c8ddf5243d17ffc9cce792edec972927",
+    "docs/LOCAL_VALIDATION.md": "193f0f53cbe1c7d8090dc6435848a5cee5ae1e64f17461cd258b3738fac637e4",
     "docs/MEASUREMENT.md": "c303b275aad081713e19a8cf9a19f1ee49461be2bdf94196904a3b06d73f4769",
     "examples/local.json": "fafa0ce65ce4607f5cf354cf0b114708c630e0bc4b24603c12412010590f4b6e",
     "pyproject.toml": "7de4b5217ca680dd73a4385a2388fe57d5c4f3fa820fba15256d94290c3d6752",
@@ -186,8 +370,8 @@
     "results/historical-mvp-e04ef6a/README.md": "2a1c3e999d420eaa3b208253139a73f2fd5fb9ecb0ddedb243a28ca083b9c144",
     "results/historical-mvp-e04ef6a/report.html": "1a1936550433ff243a54aa2b80c253b856165176ccbc8a782a0fc1b6a3f04f21",
     "results/historical-mvp-e04ef6a/report.json": "13648ba36266de997ba6953fbdcc5bfbd11f653e3eadb3ff4ab1152f0f0c7b37",
-    "results/native-macos/report.html": "d78681f1181e0ff3b6f96dcbc7b30603d19f8af79a79ce509fdf45efa6a9c915",
-    "results/native-macos/report.json": "2e8f275a0cda3da1744f445a4f3140bf5ffa5907e131dff089b1aaa9b890e1ae",
+    "results/native-macos/report.html": "56b2b3329ddde9db2db0a74d43604d1fba9b0cca53bf2c64d5619554c723df2c",
+    "results/native-macos/report.json": "f5499dae258c63b2bb4c735b1f9146d878e5e212b1a86dcf7893e6540ce1547d",
     "reviews/dns-review/README.md": "8809e33b0179dd315ae42c8c8ed780d84a201a057d73253f6b384bb8187558b6",
     "reviews/dns-review/benchmark.txt": "334014fc1211a23667d48360f49d5dd32a842658f755f1a9f4cfb50ca23461e8",
     "reviews/dns-review/mutation-accept_truncated_tcp.txt": "865df23f768f167936a689cacc1c1be8e3df8f048961289c9892983e8bc28bc9",
@@ -200,6 +384,47 @@
     "reviews/dns-review/report-check.txt": "76f63aafefdae71ea2e8f7cf10d6cec5acdc83f12fb923619998f8133fd0cec7",
     "reviews/dns-review/tests.txt": "d53cf983c7423bf9e9a1f5d20f1d57b2cfc2915104838240254dd2f2e4ac362e",
     "reviews/dns-review/truncated-tcp-before.txt": "739193915667d17f199daac35c9e05bcde1ae55f3be411212db8f3c3ff6b4515",
+    "reviews/historical-local-validation-23fbf9d/README.md": "0fcdfc7007844fcdab0f6644826953df1fb2ddb23854e734cae373d73080cead",
+    "reviews/historical-local-validation-23fbf9d/base-commit.txt": "fa4884b968112c3d9c0d9f30da11ca5ee59d58fbcf78f02e3a4ac330d91af403",
+    "reviews/historical-local-validation-23fbf9d/cleanup-inspect.txt": "c1fc3eb698d3d5fa650066b412afce0453071f6362f7f119f41150104fec8948",
+    "reviews/historical-local-validation-23fbf9d/cleanup-owned.txt": "0cd9df4165e3e25e12888f2e8a4e9530b5ce6c6b48cf69e6743b9d16200f8259",
+    "reviews/historical-local-validation-23fbf9d/cleanup-remaining.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reviews/historical-local-validation-23fbf9d/cleanup-remove.txt": "0cd9df4165e3e25e12888f2e8a4e9530b5ce6c6b48cf69e6743b9d16200f8259",
+    "reviews/historical-local-validation-23fbf9d/colima-version.txt": "1e2b405deba8d7c74cd2004a8cbefd7ee17b208a6b03bfc4ebf59ddfc2f20299",
+    "reviews/historical-local-validation-23fbf9d/combined.json": "16e9ff6b1029cd3bb0c78df0c711603b71914a7f45b1426eee64b96b38b4f4b5",
+    "reviews/historical-local-validation-23fbf9d/container-create.txt": "f2005e6f811f92de3683c816fbf33567ed2e4b7cf03e450a7aabd4772cfa0386",
+    "reviews/historical-local-validation-23fbf9d/container-exit.txt": "c1fc3eb698d3d5fa650066b412afce0453071f6362f7f119f41150104fec8948",
+    "reviews/historical-local-validation-23fbf9d/container-info.txt": "3509c99219eb2c121ace649fab1864a9e9e4a44cc3ad022cc3756759cc855cb8",
+    "reviews/historical-local-validation-23fbf9d/docker-info.txt": "bad90a66b6d2d8b287e39c75c22c4466f55f67b13261f205d302446c08833df7",
+    "reviews/historical-local-validation-23fbf9d/final-vm-state.txt": "d0525406e8a512adf91933e382007334f50b29b73e9693d78d615c6ef204b0d3",
+    "reviews/historical-local-validation-23fbf9d/image-build.txt": "8a8c66ab8cf36f4aee95e71843637fe4187002ca93cd3ccaf0d2a2b7c26a30cd",
+    "reviews/historical-local-validation-23fbf9d/image-info.txt": "daa92e0c6b01b436234a449fdf43ffc02345aac256fbdfc00bcf67f3dc71f129",
+    "reviews/historical-local-validation-23fbf9d/initial-vm-state.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reviews/historical-local-validation-23fbf9d/lima-version.txt": "cc3d40a6c7ac3172ad74fd8735aafa70e78c2d3b8bc9d866e05bacb39412cd07",
+    "reviews/historical-local-validation-23fbf9d/linux-driver.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reviews/historical-local-validation-23fbf9d/linux-export.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reviews/historical-local-validation-23fbf9d/linux-runtime.json": "2829ed1d0ce58b228f9b4d3c39b55a810c30c3c13b40e6edb7eea8c655fdc4d5",
+    "reviews/historical-local-validation-23fbf9d/linux/benchmark.txt": "d262a223f5d142b45f42a6f4a0249961286bbae347a63f047f75f44f7cedf039",
+    "reviews/historical-local-validation-23fbf9d/linux/benchmark/report.html": "1f7086e063f936107ef2d4ebd3d225ce77d8449048da564447de026d02d4e0f3",
+    "reviews/historical-local-validation-23fbf9d/linux/benchmark/report.json": "9d1231921afc2ccee55d3a208d5e3a3a8502c17adc5f723197c097bf88281b79",
+    "reviews/historical-local-validation-23fbf9d/linux/mutations.txt": "c9f3269c8b1ba2894bd058e3ede484219a0869e0171b9487d43a98d3b19c21d1",
+    "reviews/historical-local-validation-23fbf9d/linux/report.txt": "1f0329fe1d87a165fb7733073af585ac0c36cd82a8891c1bedb414c77ff287b9",
+    "reviews/historical-local-validation-23fbf9d/linux/tests.txt": "cd8601324fa717be31580a97868b71a5e085c7c5454c6285790b6cdea5b59899",
+    "reviews/historical-local-validation-23fbf9d/linux/validation.json": "26643aaa3098077875ea9fc80df94ca0491e894b7b74da4384b2fcb2405800d8",
+    "reviews/historical-local-validation-23fbf9d/native-driver.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reviews/historical-local-validation-23fbf9d/native-install.txt": "c7bd61f2676fc823fc0db687ff646bb9fa24650c1a2a940a566259ee6b4f311d",
+    "reviews/historical-local-validation-23fbf9d/native-venv.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reviews/historical-local-validation-23fbf9d/native/benchmark.txt": "8d7d866791a627646310ec77878838defb9d3bdd2cb53e0d92a083db9d370c45",
+    "reviews/historical-local-validation-23fbf9d/native/benchmark/report.html": "56b2b3329ddde9db2db0a74d43604d1fba9b0cca53bf2c64d5619554c723df2c",
+    "reviews/historical-local-validation-23fbf9d/native/benchmark/report.json": "f5499dae258c63b2bb4c735b1f9146d878e5e212b1a86dcf7893e6540ce1547d",
+    "reviews/historical-local-validation-23fbf9d/native/mutations.txt": "c9f3269c8b1ba2894bd058e3ede484219a0869e0171b9487d43a98d3b19c21d1",
+    "reviews/historical-local-validation-23fbf9d/native/report.txt": "1f0329fe1d87a165fb7733073af585ac0c36cd82a8891c1bedb414c77ff287b9",
+    "reviews/historical-local-validation-23fbf9d/native/tests.txt": "fdc1d43e7a03dc844659d962b9fc41664162c80367cb91eddb08dd2c71260253",
+    "reviews/historical-local-validation-23fbf9d/native/validation.json": "7c979cb886a4c829ef3d2a60f1990db807bdaed0c593973e846ee355283ea616",
+    "reviews/historical-local-validation-23fbf9d/negative-checks.json": "4d2f11684abdc6b904cf3c335ed6de0911cfbee2e10b95dcdec108439c70e16e",
+    "reviews/historical-local-validation-23fbf9d/original-digests.json": "88cb09bf0441c6a17dcf3ccb15a18dd1d7c3de08f4cd96e083689eb669dbeabf",
+    "reviews/historical-local-validation-23fbf9d/vm-start.txt": "6bea763bf1887aa45984388ecc92852f18f80becff25561712ea96ef228a17fe",
+    "reviews/historical-local-validation-23fbf9d/vm-stop.txt": "052b84f08f87317976cc933dfae3eb2c74312b48afd9e379a5f0a5754e8afcad",
     "reviews/mvp/README.md": "6b39bb5dccc480c8884055d39a3f9e804a69e4b8df64b8aa29620aab9e3819b6",
     "reviews/mvp/benchmark.txt": "7658169b4a60602cf2e47398865914a118ba0d8bb31b9fb5b446c2e8cf5d8b83",
     "reviews/mvp/mutation-expired_cache_reused.txt": "39797cc88010b7d8a78ac53e4b4b6ebc192965ca328aa759aa3e997408bb6a17",
@@ -213,25 +438,26 @@
     "tests/test_harness.py": "663829ff8f9b62c449d45f7b8da87e26ffdd4b5061bb2f989c7893d4be95072a",
     "tests/test_network.py": "69c6510184fc8fdafe8b7e50f8e3783be8ab0ea5a71c1f64e3ddc4d8d8130c84",
     "tests/test_report.py": "3ae8751638f9ec23eed34e532ea38a32ccebf8add0ad0e5fb5422f25a6f61119",
-    "tests/test_validation.py": "5e8d738eeaece01a012a0d722a029d428b8abffb102ece2089cfcf6bf804d45d",
+    "tests/test_validation.py": "3098b1b3cafe2e8cdd3e497860b9ea3a07d5a5097a0daf041052d3ef3c58ded8",
     "tools/__init__.py": "f8841dc54572353a39d842cab83118d311c86457881eb58d338c38fdb1d629ff",
     "tools/benchmark.py": "6ca2e01e118e2c33f768492ca8d7e442bee8803b91eb7e4b799ab22ebbdec388",
     "tools/check_report.py": "5abbe8663df1b1e4821d84b93c659553920c6eb7013a0df5c98cb9ae4c60b4fe",
-    "tools/check_validation.py": "fececfcf8a362576d100fded57afec0c93decb8438108a7981cf2f1ba3f3e426",
+    "tools/check_validation.py": "7f27bd1bb60f0491167ba951bb5c7e4a825877625b16cbb6ccfde99aac1a0c08",
     "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
     "tools/findings.py": "9ac9838532c2dad184add0bb0141d38dde5384309e666316104ba4fa6f572cfd",
     "tools/install_colima.py": "6ea91f6466bc252e86e09a4e810cee87215c99853a2d0023a465e60a64427590",
     "tools/mutation_check.py": "648666db8fc8cab30d1c1fca6d5c5cb5459c51ce0e508d5f0ae192334cffc284",
     "tools/publication_check.py": "060ebf2e5017985a245c76857f2bad1a7870f831770ced9d08ac73b51de3993a",
     "tools/query.py": "8e62e43c301a30569e6af72ede4cbcac6a233eba51b0578360a576ddd57d1c9d",
+    "tools/run_tests.py": "2441c6067e038c12aeb5c3cfb6f811df6241eadba238ed718f046206d0049b5a",
     "tools/upstream.py": "086f1765694aafaa906e4cf71ed1c2c47bf9ade445db30c4d33e05d69b6bbaed",
     "tools/validate-local": "56c599ff719dda7b962cd9dad88c3a4f6a91487decd0baf789396e291bec64f4",
-    "tools/validate_local.py": "331ff14aa20be72575af9018adb9fb60363a6c00de172f8c30a4ef18a273ae27",
-    "tools/validation_process.py": "b08a6dc31fb86f61a36a70e35071f56f0c0e132b339388e88bfebf20dd0f1fca",
-    "tools/validation_suite.py": "493d2016a3ccb3ec41232d746d62dde60ce9557f2bb42b2eeb213a309ffaaab8"
+    "tools/validate_local.py": "3b109e93a058905b48fc4c3836bb651f12e48aefa249eec01e6ba379645859af",
+    "tools/validation_process.py": "dda41a825aa9be484418de18521f1c6e9cd8b1cd6cf05c28386cea6436e343e6",
+    "tools/validation_suite.py": "6d60925dfda70cd040ed693d8019e5dcda3deae653f72be0fd73a6473ad0a18d"
   },
-  "base_commit": "2b88616c6ce16f21e845e3c6b7c2a510c75db99b",
-  "linux_runtime_sha256": "2829ed1d0ce58b228f9b4d3c39b55a810c30c3c13b40e6edb7eea8c655fdc4d5",
+  "base_commit": "23fbf9dc20839ee2c58ef79dd443debe10809a71",
+  "linux_runtime_sha256": "30c63930976c5cad4d9a7ba6715b79f680928cbba023edb6e6beb4b8e9eee4f3",
   "container_exit": {
     "Running": false,
     "ExitCode": 0,
@@ -242,6 +468,5 @@
     "container": "removed",
     "vm": "stopped",
     "errors": []
-  },
-  "normalization": "Local home/repository paths and OS username replaced in text logs; URL credentials redacted if present. Source/report bytes unchanged. Original digests retained separately."
+  }
 }

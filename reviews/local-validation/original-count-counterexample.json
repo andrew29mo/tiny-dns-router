@@ -1,0 +1,6 @@
+{
+  "original_validator_accepted_inconsistent_test_counts": true,
+  "native_test_count": 35,
+  "linux_test_count": 1,
+  "scope": "Original 23fbf9d validator, historical source checks; test log and matching log digest changed only"
+}

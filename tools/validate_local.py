@@ -30,7 +30,12 @@ def inventory(root):
 class Commands:
     def __init__(self,output,receipt):self.output=output;self.receipt=receipt;self.env=None
     def call(self,name,command,timeout=120,check=True,cwd=ROOT):
-        result=execute(command,self.output/(name+'.txt'),timeout=timeout,cwd=cwd,env=self.env)
+        try:
+            result=execute(command,self.output/(name+'.txt'),timeout=timeout,cwd=cwd,env=self.env,reap_orphans=name=='native-driver')
+        except BaseException as error:
+            result=dict(status='interrupted',error_type=type(error).__name__,log=name+'.txt')
+            self.receipt['operations'][name]=result;save(self.output/'combined.json',self.receipt)
+            raise
         self.receipt['operations'][name]=result;save(self.output/'combined.json',self.receipt)
         if check and (result['status']!='passed' or result['exit_code']!=0):raise RuntimeError('Command failed or timed out: '+name)
         return result
@@ -49,6 +54,15 @@ def check_snapshot(workspace,files):
     if any(not (workspace/n).is_file() or sha(workspace/n)!=h for n,h in files.items()):raise RuntimeError('Snapshot input changed')
 
 
+def remove_owned_container(c,docker,ident,output,exported):
+    st=json.loads(c.capture('cleanup-inspect',[docker,'inspect',ident]))[0]['State']
+    if st['Running']:c.call('cleanup-kill',[docker,'kill',ident])
+    if not exported:
+        recovered=c.call('cleanup-export',[docker,'cp',ident+':/evidence',str(output/'linux-failed')],check=False)
+        if recovered['status']!='passed':raise RuntimeError('Evidence export failed; stopped container retained')
+    c.call('cleanup-remove',[docker,'rm',ident])
+
+
 def run(output):
     if platform.system()!='Darwin' or sys.version_info[:2]!=(3,12):raise RuntimeError('Use project macOS Python 3.12 environment')
     output=Path(output).resolve()
@@ -57,7 +71,7 @@ def run(output):
     output.mkdir(parents=True,exist_ok=False)
     r=dict(schema_version=1,status='running',generated_utc=datetime.now(timezone.utc).isoformat(),operations={},scope='Native macOS and Colima Linux VM measured separately; process RSS excludes VM/kernel/client/peer memory.')
     save(output/'combined.json',r);c=Commands(output,r)
-    token=uuid.uuid4().hex;colima=docker=name=None;attempted=False
+    token=uuid.uuid4().hex;colima=docker=name=None;attempted=False;exported=False
     lockpath=ROOT/'results/local/validation.lock'
     with lockpath.open('a') as lock:
         try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
@@ -105,7 +119,7 @@ def run(output):
                 attached=c.call('linux-driver',[docker,'start','--attach',name],timeout=1200,check=False)
                 st=json.loads(c.capture('container-exit',[docker,'inspect',name]))[0]['State']
                 r['container_exit']={k:st[k] for k in ['Running','ExitCode','OOMKilled','Error']}
-                c.call('linux-export',[docker,'cp',name+':/evidence/run',str(output/'linux')])
+                c.call('linux-export',[docker,'cp',name+':/evidence/run',str(output/'linux')]);exported=True
                 if attached['status']!='passed' or st['ExitCode']!=0 or st['Running'] or st['OOMKilled'] or st['Error']:raise RuntimeError('Linux attach or container failed')
                 check_snapshot(workspace,files)
                 if inventory(ROOT)!=files:raise RuntimeError('Working input changed during run')
@@ -116,10 +130,7 @@ def run(output):
                         try:
                             ids=c.capture('cleanup-owned',[docker,'ps','-aq','--filter','label=tiny-dns.validation.run='+token]).split()
                             for ident in ids:
-                                st=json.loads(c.capture('cleanup-inspect',[docker,'inspect',ident]))[0]['State']
-                                if st['Running']:c.call('cleanup-kill',[docker,'kill',ident])
-                                if not (output/'linux').exists():c.call('cleanup-export',[docker,'cp',ident+':/evidence',str(output/'linux-failed')],check=False)
-                                c.call('cleanup-remove',[docker,'rm',ident])
+                                remove_owned_container(c,docker,ident,output,exported)
                             if c.capture('cleanup-remaining',[docker,'ps','-aq','--filter','label=tiny-dns.validation.run='+token]):raise RuntimeError('Owned container survived')
                             cleanup['container']='removed'
                         except BaseException as e:cleanup['errors'].append('container: '+type(e).__name__)

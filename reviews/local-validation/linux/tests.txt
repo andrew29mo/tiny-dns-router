@@ -6,19 +6,7 @@ test_positive_zero_and_negative_soa_minimum (test_cache.CacheTests.test_positive
 test_query_flags_and_edns_partition (test_cache.CacheTests.test_query_flags_and_edns_partition) ... ok
 test_ttl_boundary_age_id_case_and_no_mutation (test_cache.CacheTests.test_ttl_boundary_age_id_case_and_no_mutation) ... ok
 test_abnormal_process_exit_is_rejected (test_harness.HarnessTests.test_abnormal_process_exit_is_rejected) ... ok
-test_invalid_ledger_cannot_publish_passed_report (test_harness.HarnessTests.test_invalid_ledger_cannot_publish_passed_report) ... {"block": 0, "protocol": "udp", "scenario": "repeat", "cache": "on", "correct": 120, "latency_p50_s": 0.0005388370000005693, "peak_rss": 27983872}
-{"block": 0, "protocol": "udp", "scenario": "repeat", "cache": "off", "correct": 120, "latency_p50_s": 0.0077606990000020915, "peak_rss": 28028928}
-{"block": 0, "protocol": "udp", "scenario": "unique", "cache": "off", "correct": 120, "latency_p50_s": 0.007651819999999532, "peak_rss": 28004352}
-{"block": 0, "protocol": "udp", "scenario": "unique", "cache": "on", "correct": 120, "latency_p50_s": 0.007600983000003225, "peak_rss": 28041216}
-{"block": 0, "protocol": "udp", "scenario": "failover", "cache": "off", "correct": 120, "latency_p50_s": 0.03804811400000219, "peak_rss": 28119040}
-{"block": 0, "protocol": "udp", "scenario": "failover", "cache": "on", "correct": 120, "latency_p50_s": 0.0004411120000007429, "peak_rss": 28073984}
-{"block": 0, "protocol": "tcp", "scenario": "repeat", "cache": "off", "correct": 120, "latency_p50_s": 0.007933652999998486, "peak_rss": 28028928}
-{"block": 0, "protocol": "tcp", "scenario": "repeat", "cache": "on", "correct": 120, "latency_p50_s": 0.0006250779999987799, "peak_rss": 27992064}
-{"block": 0, "protocol": "tcp", "scenario": "unique", "cache": "on", "correct": 120, "latency_p50_s": 0.008034421000001402, "peak_rss": 28073984}
-{"block": 0, "protocol": "tcp", "scenario": "unique", "cache": "off", "correct": 120, "latency_p50_s": 0.008155189999996537, "peak_rss": 28024832}
-{"block": 0, "protocol": "tcp", "scenario": "failover", "cache": "on", "correct": 120, "latency_p50_s": 0.00041868699999980663, "peak_rss": 28143616}
-{"block": 0, "protocol": "tcp", "scenario": "failover", "cache": "off", "correct": 120, "latency_p50_s": 0.03865691600000076, "peak_rss": 28188672}
-ok
+test_invalid_ledger_cannot_publish_passed_report (test_harness.HarnessTests.test_invalid_ledger_cannot_publish_passed_report) ... ok
 test_manifest_or_trial_failure_invalidates_old_json_and_html (test_harness.HarnessTests.test_manifest_or_trial_failure_invalidates_old_json_and_html) ... ok
 test_all_timeouts_servfail_and_no_negative_cache (test_network.NetworkTests.test_all_timeouts_servfail_and_no_negative_cache) ... ok
 test_bad_id_is_not_cached_and_fails_over (test_network.NetworkTests.test_bad_id_is_not_cached_and_fails_over) ... ok
@@ -43,10 +31,15 @@ test_bad_wire_answer_rss_and_counts_rejected (test_report.ReportTests.test_bad_w
 test_complete_production_report (test_report.ReportTests.test_complete_production_report) ... ok
 test_invalid_counters_peer_binding_and_scheduled_latency_rejected (test_report.ReportTests.test_invalid_counters_peer_binding_and_scheduled_latency_rejected) ... ok
 test_missing_block_and_reordered_rows_rejected (test_report.ReportTests.test_missing_block_and_reordered_rows_rejected) ... ok
+test_failed_evidence_export_retains_container (test_validation.ValidationTests.test_failed_evidence_export_retains_container) ... ok
+test_interrupted_command_is_recorded (test_validation.ValidationTests.test_interrupted_command_is_recorded) ... ok
+test_manifest_failure_retains_failed_suite_receipt (test_validation.ValidationTests.test_manifest_failure_retains_failed_suite_receipt) ... ok
 test_nonzero_and_timeout_do_not_pass_and_descendants_are_cleaned (test_validation.ValidationTests.test_nonzero_and_timeout_do_not_pass_and_descendants_are_cleaned) ... ok
+test_normal_parent_exit_cannot_hide_new_session_child (test_validation.ValidationTests.test_normal_parent_exit_cannot_hide_new_session_child) ... ok
 test_snapshot_changes_are_rejected (test_validation.ValidationTests.test_snapshot_changes_are_rejected) ... ok
+test_timeout_is_not_passed_even_when_sigterm_handler_exits_zero (test_validation.ValidationTests.test_timeout_is_not_passed_even_when_sigterm_handler_exits_zero) ... ok
 
 ----------------------------------------------------------------------
-Ran 35 tests in 7.869s
+Ran 40 tests in 14.301s
 
 OK

@@ -1,14 +1,14 @@
 [
     {
-        "Id": "sha256:9138c35ecf23035b9c3927c4ca01bfcdff75a2e1e4c83c12a2e20845786311a1",
+        "Id": "sha256:af05c088debd61050411cd5b7f1c173ca04ca62e7574664c80f7e41a04118f16",
         "RepoTags": [
-            "tiny-dns-validation:729b7900e7964b61875bbca65df9c48e"
+            "tiny-dns-validation:04f05167c398480d9f1a04ae51ea38c2"
         ],
         "RepoDigests": [
-            "tiny-dns-validation@sha256:9138c35ecf23035b9c3927c4ca01bfcdff75a2e1e4c83c12a2e20845786311a1"
+            "tiny-dns-validation@sha256:af05c088debd61050411cd5b7f1c173ca04ca62e7574664c80f7e41a04118f16"
         ],
         "Comment": "buildkit.dockerfile.v0",
-        "Created": "2026-10-16T15:14:56.37979697+08:00",
+        "Created": "2026-10-16T15:26:22.791730378+08:00",
         "Config": {
             "User": "validator",
             "Env": [
@@ -28,7 +28,7 @@
         },
         "Architecture": "arm64",
         "Os": "linux",
-        "Size": 51852934,
+        "Size": 52955779,
         "RootFS": {
             "Type": "layers",
             "Layers": [
@@ -37,23 +37,23 @@
                 "sha256:2fc9de9e22c9697d332b5e283383bb068fd5d065894d475e9c9b71defab56827",
                 "sha256:5597d068c1fb2900df94dc2534718621de518ba9f0f7ec0b6271e4a1fa91b3d9",
                 "sha256:4d91616f0b015114ece129b4a75f2994ecf4a7d318f19d5a48e85952e517d597",
-                "sha256:0fcfe946057e8a8da4e79f082371fe28cf7bc6b76ca240e94574376c08dea8c3",
-                "sha256:add58a33ac846750d9db158a1896306d1bb9c12d4967389a8048d6fa490053a5"
+                "sha256:6a0c4e85c512a1ade737fa163e0e9b8d23ba25f560b1117a08bba31bdd5b64f7",
+                "sha256:5d23b6cf530e9bfb91199651433bf3b174897b556bf092843ac8be19435eec62"
             ]
         },
         "Metadata": {
-            "LastTagTime": "2026-10-16T07:14:56.710014471Z"
+            "LastTagTime": "2026-10-16T07:26:23.172172233Z"
         },
         "Descriptor": {
             "mediaType": "application/vnd.oci.image.index.v1+json",
-            "digest": "sha256:9138c35ecf23035b9c3927c4ca01bfcdff75a2e1e4c83c12a2e20845786311a1",
+            "digest": "sha256:af05c088debd61050411cd5b7f1c173ca04ca62e7574664c80f7e41a04118f16",
             "size": 856
         },
         "Identity": {
             "Build": [
                 {
-                    "Ref": "zk4vod51yle5ukzhbu09fnppg",
-                    "CreatedAt": "2026-10-16T15:14:56.795336472+08:00"
+                    "Ref": "q394l8srdu1ajxluf1esz2o65",
+                    "CreatedAt": "2026-10-16T15:26:23.268939543+08:00"
                 }
             ]
         }

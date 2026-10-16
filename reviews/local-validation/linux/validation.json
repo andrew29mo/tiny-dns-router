@@ -19,50 +19,85 @@
     "tests/test_harness.py": "663829ff8f9b62c449d45f7b8da87e26ffdd4b5061bb2f989c7893d4be95072a",
     "tests/test_network.py": "69c6510184fc8fdafe8b7e50f8e3783be8ab0ea5a71c1f64e3ddc4d8d8130c84",
     "tests/test_report.py": "3ae8751638f9ec23eed34e532ea38a32ccebf8add0ad0e5fb5422f25a6f61119",
-    "tests/test_validation.py": "5e8d738eeaece01a012a0d722a029d428b8abffb102ece2089cfcf6bf804d45d",
+    "tests/test_validation.py": "3098b1b3cafe2e8cdd3e497860b9ea3a07d5a5097a0daf041052d3ef3c58ded8",
     "tools/__init__.py": "f8841dc54572353a39d842cab83118d311c86457881eb58d338c38fdb1d629ff",
     "tools/benchmark.py": "6ca2e01e118e2c33f768492ca8d7e442bee8803b91eb7e4b799ab22ebbdec388",
     "tools/check_report.py": "5abbe8663df1b1e4821d84b93c659553920c6eb7013a0df5c98cb9ae4c60b4fe",
-    "tools/check_validation.py": "fececfcf8a362576d100fded57afec0c93decb8438108a7981cf2f1ba3f3e426",
+    "tools/check_validation.py": "7f27bd1bb60f0491167ba951bb5c7e4a825877625b16cbb6ccfde99aac1a0c08",
     "tools/findings.py": "9ac9838532c2dad184add0bb0141d38dde5384309e666316104ba4fa6f572cfd",
     "tools/install_colima.py": "6ea91f6466bc252e86e09a4e810cee87215c99853a2d0023a465e60a64427590",
     "tools/mutation_check.py": "648666db8fc8cab30d1c1fca6d5c5cb5459c51ce0e508d5f0ae192334cffc284",
     "tools/publication_check.py": "060ebf2e5017985a245c76857f2bad1a7870f831770ced9d08ac73b51de3993a",
     "tools/query.py": "8e62e43c301a30569e6af72ede4cbcac6a233eba51b0578360a576ddd57d1c9d",
+    "tools/run_tests.py": "2441c6067e038c12aeb5c3cfb6f811df6241eadba238ed718f046206d0049b5a",
     "tools/upstream.py": "086f1765694aafaa906e4cf71ed1c2c47bf9ade445db30c4d33e05d69b6bbaed",
-    "tools/validate_local.py": "331ff14aa20be72575af9018adb9fb60363a6c00de172f8c30a4ef18a273ae27",
-    "tools/validation_process.py": "b08a6dc31fb86f61a36a70e35071f56f0c0e132b339388e88bfebf20dd0f1fca",
-    "tools/validation_suite.py": "493d2016a3ccb3ec41232d746d62dde60ce9557f2bb42b2eeb213a309ffaaab8"
+    "tools/validate_local.py": "3b109e93a058905b48fc4c3836bb651f12e48aefa249eec01e6ba379645859af",
+    "tools/validation_process.py": "dda41a825aa9be484418de18521f1c6e9cd8b1cd6cf05c28386cea6436e343e6",
+    "tools/validation_suite.py": "6d60925dfda70cd040ed693d8019e5dcda3deae653f72be0fd73a6473ad0a18d"
   },
   "operations": {
     "benchmark": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 28.732070553,
+      "elapsed_s": 29.589035147,
       "log": "benchmark.txt",
-      "log_sha256": "d262a223f5d142b45f42a6f4a0249961286bbae347a63f047f75f44f7cedf039"
+      "log_sha256": "03c51dc141171548e6ee7d11e93a5292b74ddee34d7d709cf23f48d665439ec5",
+      "reclaimed_orphans": 0,
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "tools.benchmark",
+        "--output",
+        "/evidence/run/benchmark",
+        "--blocks",
+        "3",
+        "--label",
+        "colima-linux"
+      ]
     },
     "report": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.3263194150000004,
+      "elapsed_s": 0.32940846900000054,
       "log": "report.txt",
-      "log_sha256": "1f0329fe1d87a165fb7733073af585ac0c36cd82a8891c1bedb414c77ff287b9"
+      "log_sha256": "1f0329fe1d87a165fb7733073af585ac0c36cd82a8891c1bedb414c77ff287b9",
+      "reclaimed_orphans": 0,
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "tools.check_report",
+        "/evidence/run/benchmark"
+      ]
     },
     "tests": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 8.035265972000005,
+      "elapsed_s": 14.462783327000004,
       "log": "tests.txt",
-      "log_sha256": "cd8601324fa717be31580a97868b71a5e085c7c5454c6285790b6cdea5b59899"
+      "log_sha256": "9af0c07a358363918c4ffa9568ec5283730c229d72fcdd4172e9a347ca6db566",
+      "reclaimed_orphans": 0,
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "tools.run_tests",
+        "--output",
+        "/evidence/run/tests.json"
+      ]
     },
     "mutations": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 2.873357849999998,
+      "elapsed_s": 2.724324029999991,
       "log": "mutations.txt",
-      "log_sha256": "c9f3269c8b1ba2894bd058e3ede484219a0869e0171b9487d43a98d3b19c21d1"
+      "log_sha256": "c9f3269c8b1ba2894bd058e3ede484219a0869e0171b9487d43a98d3b19c21d1",
+      "reclaimed_orphans": 0,
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "tools.mutation_check"
+      ]
     }
   },
+  "test_outcomes_sha256": "b2bdf903f1c592285920d2392f6418c40ffc2defffb95e2a71f7c64e89e81edf",
   "children_remaining": 0
 }

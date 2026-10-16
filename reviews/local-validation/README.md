@@ -1,102 +1,86 @@
-# Local macOS / Colima Linux validation
+# Local validation audit
 
-Both environments passed the same frozen formal implementation: **35 tests each**,
-five production mutations detected in each, **36 complete measured trials and
-4,320/4,320 correct replies per environment** (72 trials / 8,640 replies total).
-The owned container was removed and dedicated VM stopped.
+Both platforms passed the revised workflow using the same frozen production,
+fixture and tool sources: **40 identical formal unittest IDs each**, five actual
+network mutation checks each, and **36 full trials / 4,320 correct replies each**.
+All 72 trials / 8,640 replies are retained. This validates native macOS ARM64 and
+Linux aarch64 inside Colima, not native Linux hardware or hosted GitHub CI.
+GitHub remains Private; project license is unselected.
 
-Run with `./tools/validate-local`. Recheck this retained record with:
+## Findings fixed
+
+- The original executor could mark a normally exited parent **passed** while a
+  new-session child remained alive. Supervised formal commands now propagate
+  unique ownership tags through descendants, reclaim tagged leftovers after
+  normal/nonzero/timeout exits, and fail if a normal exit left children behind.
+  Regressions cover both exit 0 and exit 7, plus a timeout whose SIGTERM handler
+  exits 0. Ownership tags address accidental leaks in inspectable cooperating
+  processes; they are not a hostile-process containment guarantee.
+- The old checker accepted a Linux log claiming only one test alongside 35 native
+  tests after the log hash was updated. The new standard unittest driver records
+  discovered, started and successful test IDs in `tests.json`. Both platforms must
+  match exactly, with no missing, repeated, failed or skipped tests. Command module,
+  outcome hashes and summary counts are checked. See the preserved
+  [old checker counterexample](original-count-counterexample.json).
+- A failed recovery export previously still allowed container removal. Removal
+  now requires successful export. An **actual exit-7 container** with a deliberately
+  invalid export destination was retained as expected, then manually removed after
+  the probe; its VM was stopped. See [probe](export-failure-probe.json). The formal
+  suite also exercises this branch with a controlled failing command result.
+- Manifest initialization failure now leaves failed suite JSON; interrupted
+  outer commands retain their interrupted disposition. Raw Docker inspect/image
+  data, final VM list and remaining-container list must agree with summary fields.
+
+## Evidence
 
 ```sh
+./tools/validate-local
 .venv/bin/python -m tools.check_validation reviews/local-validation
 ```
 
-The base checkout was `2b88616`; the exact staged implementation and setup are
-identified by the source/snapshot hashes in `combined.json` and platform receipts.
-Both platforms use Python 3.12.14 and the same pinned requirements. Native macOS
-is ARM64; Linux is aarch64 inside Colima, without architecture emulation. The
-VM has 4 vCPUs / 6 GiB RAM; the isolated non-root container has 4 CPUs / 4 GiB RAM,
-no source mount, no external network, all capabilities dropped and no new privileges.
+The source/snapshot hashes, real command arguments and operation outcomes are in
+`combined.json` and each platform's `validation.json`. Runtime/image/container
+limits are in `linux-runtime.json`. Each platform retains its own `tests.json`,
+test/mutation logs and complete benchmark JSON/HTML. Reports test the production
+socket/CLI implementation; the environment variable selects freshly measured
+report data, with full source checks preserved. No alternative router is tested.
 
-## Evidence and failure handling
+[Thirteen negative record probes](negative-checks.json) reject timeout, reclaimed
+orphans, container error, inspect/summary contradiction, unfinished cleanup,
+wrong source binding, absent Linux evidence, altered logs, missing trials,
+incomplete outcomes, a wrong test command, a misleading VM label, and a
+self-consistent but different platform test inventory. The last probe changes
+Linux to 39 completed tests while native has 40, and is specifically rejected
+for differing formal tests.
 
-Each environment runs the production socket/CLI tests, its own newly generated
-benchmark/report checks and the same five network mutation checks. The report
-fixture environment variable selects each platform’s own data and preserves full
-source validation. Added runner regressions prove nonzero exits and timeouts do
-not pass, descendants in new sessions are reclaimed, and changed snapshot inputs
-are rejected. Process/readiness shutdown regressions remain in the formal suite.
+The final whole-run checker passed after the owned container was removed and
+VM stopped. The separate export-failure probe runs **after** both formal timing
+runs, so it does not contaminate the performance observations. Logs and command
+arguments replace local home/repository paths and OS username; source/report
+bytes are unchanged. Original local digests are in `original-digests.json`.
+These checks establish consistency, not hostile-producer attestation. Raw local
+snapshots, environments, tools and logs remain ignored.
 
-The final checker requires successful command exits, non-OOM container state,
-matching native/Linux source manifests, snapshot binding, canonical JSON/HTML,
-log hashes and verified cleanup. A `docker start --attach` outcome alone is not
-accepted as a container test outcome; the actual container exit is inspected.
+Pre-audit records are preserved in `reviews/historical-local-validation-23fbf9d/`.
+They describe the old source and weaker checks, not current-source validation.
 
-Text logs replace local paths and OS username; source and report bytes are
-unchanged. `original-digests.json` retains original local digests. Full snapshots,
-venvs, downloaded tools, VM disk and raw logs stay ignored locally. The fixed
-source snapshot is copied into the image, not mounted from a changing checkout.
+## Separate performance and RSS
 
-Additional checker probes rejected seven inconsistent records: command timeout,
-nonzero container exit, unfinished cleanup, changed source binding, missing Linux
-evidence, altered test log and missing benchmark trial. See
-[probe outcomes](negative-checks.json). These supplement the 35-test formal suite.
+Each linked report retains all workloads and blocks, invocation and scheduled
+latency, completed QPS, issue lag, RSS baseline/peak/growth and sampling gaps.
 
-## Separate observations
+- **Native macOS ARM64**: [JSON](native/benchmark/report.json),
+  [HTML](native/benchmark/report.html), [40-test outcomes](native/tests.json).
+- **Linux aarch64 / Colima VM**: [JSON](linux/benchmark/report.json),
+  [HTML](linux/benchmark/report.html), [40-test outcomes](linux/tests.json).
 
-Medians over three randomized paired blocks per row. Same 120-query planned
-3 ms schedule in each cache mode; cold starts, real controlled peers with 6 ms
-async delay. Failover adds a silent first peer / 30 ms deadline. All rows remain.
-Invocation p50/p95 exclude generator lag; scheduled p95 includes it. QPS is
-finite-workload completed queries / makespan, not saturated service capacity.
+Both use Python 3.12.14, identical pinned requirements and planned query schedules.
+The dedicated VM is stopped during native measurement. Linux uses a 4-vCPU/6-GiB
+VM, with a non-root, network-isolated, capability-dropped 4-CPU/4-GiB container,
+without a live source mount or architecture emulation.
 
-### Native macOS ARM64
-
-[JSON](native/benchmark/report.json) · [HTML](native/benchmark/report.html) · [Test log](native/tests.txt)
-
-| Transport | Workload | Cache | p50 ms | p95 ms | Scheduled p95 ms | QPS | Peak process RSS MiB |
-|---|---|---|---:|---:|---:|---:|---:|
-| udp | repeat | off | 7.371 | 8.191 | 8.413 | 328.8 | 29.94 |
-| udp | repeat | on | 0.645 | 1.195 | 1.406 | 335.1 | 29.88 |
-| udp | unique | off | 7.404 | 8.494 | 8.711 | 328.1 | 29.91 |
-| udp | unique | on | 7.319 | 8.236 | 8.409 | 328.1 | 29.94 |
-| udp | failover | off | 37.536 | 38.653 | 38.851 | 303.3 | 29.98 |
-| udp | failover | on | 0.706 | 38.162 | 38.289 | 335.3 | 30.02 |
-| tcp | repeat | off | 7.462 | 8.721 | 8.899 | 328.6 | 29.92 |
-| tcp | repeat | on | 0.738 | 1.629 | 1.911 | 335.2 | 29.98 |
-| tcp | unique | off | 7.408 | 8.068 | 8.286 | 328.5 | 29.91 |
-| tcp | unique | on | 7.456 | 8.296 | 8.520 | 328.2 | 29.95 |
-| tcp | failover | off | 37.706 | 38.716 | 38.986 | 303.5 | 30.14 |
-| tcp | failover | on | 0.739 | 37.899 | 38.186 | 335.2 | 30.11 |
-
-Maximum issue lag: 2.36 ms; maximum RSS sample gap: 12.55 ms.
-
-### Linux aarch64 inside Colima VM
-
-[JSON](linux/benchmark/report.json) · [HTML](linux/benchmark/report.html) · [Test log](linux/tests.txt)
-
-| Transport | Workload | Cache | p50 ms | p95 ms | Scheduled p95 ms | QPS | Peak process RSS MiB |
-|---|---|---|---:|---:|---:|---:|---:|
-| udp | repeat | off | 7.761 | 8.798 | 9.737 | 328.6 | 26.71 |
-| udp | repeat | on | 0.525 | 1.431 | 2.069 | 334.7 | 26.68 |
-| udp | unique | off | 7.652 | 8.778 | 9.633 | 328.2 | 26.71 |
-| udp | unique | on | 7.700 | 8.450 | 9.495 | 328.5 | 26.74 |
-| udp | failover | off | 38.113 | 39.198 | 40.038 | 302.8 | 26.82 |
-| udp | failover | on | 0.441 | 38.372 | 39.203 | 334.9 | 26.77 |
-| tcp | repeat | off | 7.934 | 8.672 | 9.486 | 328.1 | 26.73 |
-| tcp | repeat | on | 0.546 | 0.990 | 1.975 | 334.3 | 26.70 |
-| tcp | unique | off | 8.034 | 9.170 | 9.998 | 327.8 | 26.74 |
-| tcp | unique | on | 8.028 | 8.717 | 9.634 | 327.9 | 26.76 |
-| tcp | failover | off | 38.657 | 39.772 | 40.646 | 302.1 | 26.88 |
-| tcp | failover | on | 0.556 | 38.579 | 39.352 | 335.0 | 26.85 |
-
-Maximum issue lag: 8.74 ms; maximum RSS sample gap: 13.96 ms.
-
-## Limits
-
-These are separate OS/runtime observations. No cross-platform speedup or memory
-saving is inferred. Guest proxy RSS excludes whole-VM/Colima/kernel/client/peer
-memory and may miss short peaks. This does not establish native Linux hardware
-performance, WAN behavior, maximum throughput, independent DNS-codec validation,
-production security or hosted CI success. GitHub remains Private; project license
-is still unselected. See [workflow details](../../docs/LOCAL_VALIDATION.md).
+No cross-platform speedup or memory saving is inferred. RSS covers only the proxy
+process; guest RSS excludes whole-VM/Colima/kernel/client/peer memory. Sampling can
+miss short peaks. These fixed offered loads and controlled delayed peers do not
+establish saturated capacity, WAN performance, independent DNS-codec validation,
+production security or hosted CI success. See [workflow](../../docs/LOCAL_VALIDATION.md).

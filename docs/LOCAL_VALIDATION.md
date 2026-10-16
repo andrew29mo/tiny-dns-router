@@ -35,8 +35,14 @@ not another implementation or relaxed source checks. The source manifest and
 snapshot bindings must agree in both environments. Changed source, failed
 commands, timeouts, abnormal/OOM container exits or failed cleanup prevent an
 overall passed record. Commands have deadlines; cancellation reclaims descendants,
-including subprocesses which open new sessions. The container is identified by a
-unique per-run label, removed after export, and the owned VM is stopped.
+including subprocesses which open new sessions. Supervised formal commands inherit
+unique ownership tags; leftover tagged processes are reclaimed even after a parent
+exits normally, and that command fails. This protects against accidental leaks,
+not hostile processes that remove tags or evade process inspection. VM lifecycle
+commands are separately managed, so their intentional daemons are not reclaimed. Exact discovered/started/successful unittest IDs are retained in `tests.json`
+and must match between platforms. Manifest setup failures and interrupted commands
+also leave failed receipts. The container is identified by a
+unique per-run label, removed only after successful export (failed export retains the stopped container), and the owned VM is stopped.
 Interrupted runs retain failed/incomplete evidence and cannot be mistaken for
 successful validation. Cached images and the stopped VM disk remain for reuse.
 

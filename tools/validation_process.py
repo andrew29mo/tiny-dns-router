@@ -5,6 +5,7 @@ from pathlib import Path
 import signal
 import subprocess
 import time
+import uuid
 
 import psutil
 
@@ -84,12 +85,40 @@ def stop_tree(child):
         raise RuntimeError('Owned subprocesses survived cancellation')
 
 
-def execute(command, logfile, *, timeout=900, cwd=None, env=None):
+def owned_processes(token):
+    result=[]
+    for p in psutil.process_iter():
+        try:
+            if p.uids().real==os.getuid() and token in p.environ().get('TINY_DNS_VALIDATION_OWNERS','').split(','):
+                if p.is_running() and p.status()!=psutil.STATUS_ZOMBIE:result.append(p)
+        except (psutil.NoSuchProcess,psutil.AccessDenied):pass
+    return result
+
+
+def reclaim_owned(token):
+    processes=owned_processes(token)
+    for p in processes:
+        try:p.terminate()
+        except psutil.NoSuchProcess:pass
+    _,alive=psutil.wait_procs(processes,timeout=1)
+    for p in alive:
+        try:p.kill()
+        except psutil.NoSuchProcess:pass
+    psutil.wait_procs(alive,timeout=2)
+    if owned_processes(token):raise RuntimeError('Tagged child survived cleanup')
+    return len(processes)
+
+
+def execute(command, logfile, *, timeout=900, cwd=None, env=None, reap_orphans=True):
     from tools.validation_suite import sha
     start = time.monotonic()
     status = 'passed'
+    token=uuid.uuid4().hex
+    child_env=dict(os.environ if env is None else env)
+    if reap_orphans:child_env['TINY_DNS_VALIDATION_OWNERS']=','.join(filter(None,[child_env.get('TINY_DNS_VALIDATION_OWNERS',''),token]))
+    orphans=0
     with Path(logfile).open('wb') as log:
-        child = subprocess.Popen(command, cwd=cwd, env=env, stdout=log,
+        child = subprocess.Popen(command, cwd=cwd, env=child_env, stdout=log,
                                  stderr=subprocess.STDOUT, start_new_session=True)
         try:
             child.wait(timeout=timeout)
@@ -100,8 +129,12 @@ def execute(command, logfile, *, timeout=900, cwd=None, env=None):
         except BaseException:
             with cleanup_signals():
                 stop_tree(child)
+                if reap_orphans:reclaim_owned(token)
             raise
+        if reap_orphans:
+            with cleanup_signals():orphans=reclaim_owned(token)
+            if orphans and status=='passed':status='failed'
         if child.returncode != 0 and status == 'passed':
             status = 'failed'
     return dict(status=status, exit_code=child.returncode, elapsed_s=time.monotonic()-start,
-                log=Path(logfile).name, log_sha256=sha(logfile))
+                log=Path(logfile).name, log_sha256=sha(logfile), reclaimed_orphans=orphans, command=[str(x) for x in command])

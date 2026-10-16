@@ -4,7 +4,15 @@
     "result": "rejected"
   },
   {
+    "fault": "orphan_cleanup",
+    "result": "rejected"
+  },
+  {
     "fault": "container_exit",
+    "result": "rejected"
+  },
+  {
+    "fault": "inspect_contradiction",
     "result": "rejected"
   },
   {
@@ -25,6 +33,22 @@
   },
   {
     "fault": "missing_trials",
+    "result": "rejected"
+  },
+  {
+    "fault": "different_test_inventory",
+    "result": "rejected"
+  },
+  {
+    "fault": "wrong_test_module",
+    "result": "rejected"
+  },
+  {
+    "fault": "vm_label",
+    "result": "rejected"
+  },
+  {
+    "fault": "self_consistent_but_different_platform_test_inventory",
     "result": "rejected"
   }
 ]

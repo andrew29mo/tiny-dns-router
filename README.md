@@ -100,20 +100,20 @@ Values below are medians across all three blocks, not confidence intervals.
 
 | Transport | Workload | Cache | p50 ms | p95 ms | Completed QPS | Upstream queries | Peak RSS MiB |
 |---|---|---|---:|---:|---:|---:|---:|
-| udp | repeat | off | 7.371 | 8.191 | 328.8 | 120 | 29.94 |
-| udp | repeat | on | 0.645 | 1.195 | 335.1 | 4 | 29.88 |
-| udp | unique | off | 7.404 | 8.494 | 328.1 | 120 | 29.91 |
-| udp | unique | on | 7.319 | 8.236 | 328.1 | 120 | 29.94 |
-| udp | failover | off | 37.536 | 38.653 | 303.3 | 240 | 29.98 |
-| udp | failover | on | 0.706 | 38.162 | 335.3 | 32 | 30.02 |
-| tcp | repeat | off | 7.462 | 8.721 | 328.6 | 120 | 29.92 |
-| tcp | repeat | on | 0.738 | 1.629 | 335.2 | 4 | 29.98 |
-| tcp | unique | off | 7.408 | 8.068 | 328.5 | 120 | 29.91 |
-| tcp | unique | on | 7.456 | 8.296 | 328.2 | 120 | 29.95 |
-| tcp | failover | off | 37.706 | 38.716 | 303.5 | 240 | 30.14 |
-| tcp | failover | on | 0.739 | 37.899 | 335.2 | 32 | 30.11 |
+| udp | repeat | off | 7.238 | 8.113 | 328.5 | 120 | 29.95 |
+| udp | repeat | on | 0.729 | 1.631 | 335.4 | 4 | 29.97 |
+| udp | unique | off | 7.326 | 8.225 | 328.5 | 120 | 29.98 |
+| udp | unique | on | 7.445 | 8.471 | 328.2 | 120 | 30.22 |
+| udp | failover | off | 37.511 | 40.134 | 303.3 | 240 | 30.08 |
+| udp | failover | on | 0.756 | 37.622 | 335.2 | 32 | 30.08 |
+| tcp | repeat | off | 7.684 | 8.616 | 328.3 | 120 | 29.98 |
+| tcp | repeat | on | 0.730 | 1.549 | 335.1 | 4 | 29.91 |
+| tcp | unique | off | 7.770 | 11.718 | 328.7 | 120 | 30.11 |
+| tcp | unique | on | 7.441 | 8.636 | 328.1 | 120 | 30.19 |
+| tcp | failover | off | 37.582 | 38.511 | 303.3 | 240 | 30.22 |
+| tcp | failover | on | 0.653 | 38.223 | 335.3 | 32 | 30.08 |
 
-Correct responses: 4320/4320. Maximum client issue lag: 2.36 ms; maximum RSS sample gap: 12.55 ms.
+Correct responses: 4320/4320. Maximum client issue lag: 26.75 ms; maximum RSS sample gap: 28.76 ms.
 
 Completed QPS reflects this fixed offered load, not maximum service capacity.
 RSS covers only the sampled proxy process. These data do not establish Internet latency,
