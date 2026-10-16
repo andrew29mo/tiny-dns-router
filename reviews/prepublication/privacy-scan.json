@@ -1,0 +1,28 @@
+{
+  "tracked_files": 155,
+  "reachable_blobs_scanned": 154,
+  "candidate_paths": [],
+  "dependencies": {
+    "dnspython": {
+      "version": "2.9.0",
+      "license_expression": "ISC",
+      "license": null,
+      "license_classifiers": []
+    },
+    "psutil": {
+      "version": "7.0.0",
+      "license_expression": null,
+      "license": "BSD-3-Clause",
+      "license_classifiers": [
+        "License :: OSI Approved :: BSD License"
+      ]
+    }
+  },
+  "project_license_files": [],
+  "author_identities": [
+    "Andrew Yuan <35025671+andrew29mo@users.noreply.github.com>"
+  ],
+  "history_scan_exclusions": [],
+  "audited_base_commit": "ab8634a20d7cffe1c861108e0f4a518d56c2733e",
+  "scope": "Tracked content and all reachable Git blobs; heuristic patterns only, not a comprehensive secret-scan guarantee."
+}

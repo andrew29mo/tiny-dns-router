@@ -20,7 +20,8 @@ Every RRset TTL is clamped downward to the configured cap; negative SOA TTL is
 also clamped to SOA.MINIMUM. Positive answers must resolve their CNAME chain;
 negative answers need an SOA ancestor of the terminal canonical name. Lifetime
 is the minimum retained RRset TTL, which can conservatively shorten caching.
-Zero lifetime is not cached. No SERVFAIL/stale/error caching is implemented.
+Zero lifetime is not cached. SERVFAIL, transport failures and stale responses are not cached. NXDOMAIN and
+NODATA are handled by the negative-cache policy above.
 
 Cache expiration uses monotonic time. Hit TTLs subtract the ceiling of elapsed
 seconds, so values are conservative and never reset to the original lifetime.

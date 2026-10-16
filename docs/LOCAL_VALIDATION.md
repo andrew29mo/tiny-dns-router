@@ -39,10 +39,12 @@ including subprocesses which open new sessions. Supervised formal commands inher
 unique ownership tags; leftover tagged processes are reclaimed even after a parent
 exits normally, and that command fails. This protects against accidental leaks,
 not hostile processes that remove tags or evade process inspection. VM lifecycle
-commands are separately managed, so their intentional daemons are not reclaimed. Exact discovered/started/successful unittest IDs are retained in `tests.json`
+commands are separately managed, so their intentional daemons are not reclaimed.
+Exact discovered/started/successful unittest IDs are retained in `tests.json`
 and must match between platforms. Manifest setup failures and interrupted commands
 also leave failed receipts. The container is identified by a
-unique per-run label, removed only after successful export (failed export retains the stopped container), and the owned VM is stopped.
+unique per-run label, removed only after successful export (failed export retains the stopped
+container), and the owned VM is stopped.
 Interrupted runs retain failed/incomplete evidence and cannot be mistaken for
 successful validation. Cached images and the stopped VM disk remain for reuse.
 

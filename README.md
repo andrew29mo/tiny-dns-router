@@ -8,7 +8,7 @@ wire parsing; the routing, cache policy, limits and lifecycle are implemented he
 
 ## Run
 
-Python 3.12+ on macOS or Linux:
+Python 3.12+ on macOS or Linux (retained validation uses Python 3.12.14):
 
 ```sh
 python3 -m venv .venv
@@ -37,7 +37,8 @@ a stale ready file alone is not proof the service is alive.
 - Numeric IPv4 upstream addresses; UDP and TCP share one loopback port.
 - TCP clients use TCP upstreams. UDP replies with TC trigger upstream TCP fallback.
 - Sequential failover on transport errors, timeout or invalid response; valid DNS
-  error responses retain their meaning. Truncated TCP replies are incomplete and trigger failover; A valid NXDOMAIN does not trigger failover.
+  error responses retain their meaning. Truncated TCP replies trigger failover;
+  a valid NXDOMAIN does not.
 - A/AAAA response cache, including CNAME chains. NXDOMAIN/NODATA caching requires
   an ancestor SOA and uses its TTL/MINIMUM conservatively. SERVFAIL, zero-TTL,
   truncated and unsupported cache shapes are not stored. Cache hits age every RRset.
@@ -92,6 +93,9 @@ Linux VM performance/RSS is reported separately from native macOS.
 
 ## Measured results
 
+Latency columns start at the actual client invocation and exclude generator
+waiting. The linked HTML also reports scheduled p95, which includes that waiting.
+
 <!-- measured:start -->
 Native macOS loopback; three randomized paired blocks, 36 trials, 120 queries per trial.
 Each mode starts cold and receives the same planned 3 ms arrival spacing.
@@ -133,6 +137,9 @@ is recorded above; it is not a substitute claim of hosted CI or native Linux har
 
 ## Status and license
 
-Private MVP. No project open-source license selected. Dependencies retain their
+Private MVP. No project open-source license selected; no root `LICENSE` file is
+present, and `pyproject.toml` declares no project license. Dependencies retain their
 own terms; see [third-party notices](THIRD_PARTY_NOTICES.md). No private network
 captures or external datasets are used in the retained synthetic DNS experiments.
+
+[Final prepublication review](reviews/prepublication/README.md).
