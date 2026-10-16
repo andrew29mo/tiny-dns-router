@@ -1,7 +1,7 @@
 [
     {
-        "Id": "45bdb23e449dee27f597fbfffcb89d43535d69ae3ccc098762da269d5bf96093",
-        "Created": "2026-10-16T07:26:23.407128391Z",
+        "Id": "35f96c87de43ef32294717a449bf56a4dfd6559eb2c5e0785d742bcd770ec3f9",
+        "Created": "2026-10-16T07:47:09.85289716Z",
         "Path": "python",
         "Args": [
             "-m",
@@ -24,12 +24,12 @@
             "StartedAt": "0001-01-01T00:00:00Z",
             "FinishedAt": "0001-01-01T00:00:00Z"
         },
-        "Image": "sha256:af05c088debd61050411cd5b7f1c173ca04ca62e7574664c80f7e41a04118f16",
+        "Image": "sha256:ebf4a4f318d7b57047790a77970baaae7cc9fb8e15d61bd9ba0c57ffd9d888f3",
         "ResolvConfPath": "",
         "HostnamePath": "",
         "HostsPath": "",
         "LogPath": "",
-        "Name": "/tiny-dns-validation-04f05167c398480d9f1a04ae51ea38c2",
+        "Name": "/tiny-dns-validation-6d06d5cf3e584d118ec07af933205f52",
         "RestartCount": 0,
         "Driver": "overlayfs",
         "Platform": "linux",
@@ -143,7 +143,7 @@
         },
         "Mounts": [],
         "Config": {
-            "Hostname": "45bdb23e449d",
+            "Hostname": "35f96c87de43",
             "Domainname": "",
             "User": "validator",
             "AttachStdin": false,
@@ -166,7 +166,7 @@
                 "--environment",
                 "colima-linux"
             ],
-            "Image": "tiny-dns-validation:04f05167c398480d9f1a04ae51ea38c2",
+            "Image": "tiny-dns-validation:6d06d5cf3e584d118ec07af933205f52",
             "Volumes": null,
             "WorkingDir": "/workspace",
             "Entrypoint": [
@@ -175,7 +175,7 @@
                 "tools.validation_suite"
             ],
             "Labels": {
-                "tiny-dns.validation.run": "04f05167c398480d9f1a04ae51ea38c2"
+                "tiny-dns.validation.run": "6d06d5cf3e584d118ec07af933205f52"
             }
         },
         "NetworkSettings": {
@@ -204,7 +204,7 @@
         },
         "ImageManifestDescriptor": {
             "mediaType": "application/vnd.oci.image.manifest.v1+json",
-            "digest": "sha256:8db3fc5c2668104ed0ccd376a5a564035dd20324b5615e1a0ce713fe5fb2825d",
+            "digest": "sha256:2920c270e4af3e0336912b800eca5573194dd2f3009dbd15445f26d6fbf53ecb",
             "size": 1626,
             "platform": {
                 "architecture": "arm64",

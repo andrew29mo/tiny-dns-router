@@ -1,5 +1,8 @@
 # Historical DNS correctness and measurement review
 
+License snapshot: this historical review predates MIT adoption. Its original
+receipts are unchanged; the current project license is [MIT](../../LICENSE).
+
 This receipt covers `2b88616`. Its unchanged reports are preserved in
 `results/historical-dns-review-2b88616/`; current cross-platform evidence is in
 `reviews/local-validation/`.

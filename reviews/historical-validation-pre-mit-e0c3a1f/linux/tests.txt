@@ -1,0 +1,45 @@
+test_cname_and_lru_byte_limits (test_cache.CacheTests.test_cname_and_lru_byte_limits) ... ok
+test_longest_label_suffix_and_validation (test_cache.CacheTests.test_longest_label_suffix_and_validation) ... ok
+test_lru_hit_promotes_and_expiry_reclaims_bytes (test_cache.CacheTests.test_lru_hit_promotes_and_expiry_reclaims_bytes) ... ok
+test_negative_cname_terminal_soa_and_zero_minimum (test_cache.CacheTests.test_negative_cname_terminal_soa_and_zero_minimum) ... ok
+test_positive_zero_and_negative_soa_minimum (test_cache.CacheTests.test_positive_zero_and_negative_soa_minimum) ... ok
+test_query_flags_and_edns_partition (test_cache.CacheTests.test_query_flags_and_edns_partition) ... ok
+test_ttl_boundary_age_id_case_and_no_mutation (test_cache.CacheTests.test_ttl_boundary_age_id_case_and_no_mutation) ... ok
+test_abnormal_process_exit_is_rejected (test_harness.HarnessTests.test_abnormal_process_exit_is_rejected) ... ok
+test_invalid_ledger_cannot_publish_passed_report (test_harness.HarnessTests.test_invalid_ledger_cannot_publish_passed_report) ... ok
+test_manifest_or_trial_failure_invalidates_old_json_and_html (test_harness.HarnessTests.test_manifest_or_trial_failure_invalidates_old_json_and_html) ... ok
+test_all_timeouts_servfail_and_no_negative_cache (test_network.NetworkTests.test_all_timeouts_servfail_and_no_negative_cache) ... ok
+test_bad_id_is_not_cached_and_fails_over (test_network.NetworkTests.test_bad_id_is_not_cached_and_fails_over) ... ok
+test_cname_lifetime_and_query_flag_partition_live (test_network.NetworkTests.test_cname_lifetime_and_query_flag_partition_live) ... ok
+test_forced_tcp_shutdown_accounts_admitted_request (test_network.NetworkTests.test_forced_tcp_shutdown_accounts_admitted_request) ... ok
+test_graceful_and_forced_shutdown_ledger (test_network.NetworkTests.test_graceful_and_forced_shutdown_ledger) ... ok
+test_idle_tcp_cannot_extend_shutdown_deadline (test_network.NetworkTests.test_idle_tcp_cannot_extend_shutdown_deadline) ... ok
+test_live_eviction_and_tcp_connection_bound (test_network.NetworkTests.test_live_eviction_and_tcp_connection_bound) ... ok
+test_live_negative_soa_minimum_is_enforced (test_network.NetworkTests.test_live_negative_soa_minimum_is_enforced) ... ok
+test_live_ttl_expiry_negative_and_uncacheable (test_network.NetworkTests.test_live_ttl_expiry_negative_and_uncacheable) ... ok
+test_malformed_udp_and_oversized_tcp_do_not_kill_service (test_network.NetworkTests.test_malformed_udp_and_oversized_tcp_do_not_kill_service) ... ok
+test_negative_expiry_and_wire_byte_eviction_over_live_service (test_network.NetworkTests.test_negative_expiry_and_wire_byte_eviction_over_live_service) ... ok
+test_overload_is_bounded_and_recovers (test_network.NetworkTests.test_overload_is_bounded_and_recovers) ... ok
+test_process_bootstrap_identity_shutdown_and_metrics (test_network.NetworkTests.test_process_bootstrap_identity_shutdown_and_metrics) ... ok
+test_real_udp_tcp_a_aaaa_and_suffix (test_network.NetworkTests.test_real_udp_tcp_a_aaaa_and_suffix) ... ok
+test_tcp_pipelined_order_fragmentation_and_idle_close (test_network.NetworkTests.test_tcp_pipelined_order_fragmentation_and_idle_close) ... ok
+test_timeout_failover_same_suffix_udp_and_tcp (test_network.NetworkTests.test_timeout_failover_same_suffix_udp_and_tcp) ... ok
+test_truncated_tcp_response_fails_over_and_is_not_cached (test_network.NetworkTests.test_truncated_tcp_response_fails_over_and_is_not_cached) ... ok
+test_udp_fallback_shares_one_upstream_deadline (test_network.NetworkTests.test_udp_fallback_shares_one_upstream_deadline) ... ok
+test_udp_tc_fallback_and_client_truncation (test_network.NetworkTests.test_udp_tc_fallback_and_client_truncation) ... ok
+test_bad_wire_answer_rss_and_counts_rejected (test_report.ReportTests.test_bad_wire_answer_rss_and_counts_rejected) ... ok
+test_complete_production_report (test_report.ReportTests.test_complete_production_report) ... ok
+test_invalid_counters_peer_binding_and_scheduled_latency_rejected (test_report.ReportTests.test_invalid_counters_peer_binding_and_scheduled_latency_rejected) ... ok
+test_missing_block_and_reordered_rows_rejected (test_report.ReportTests.test_missing_block_and_reordered_rows_rejected) ... ok
+test_failed_evidence_export_retains_container (test_validation.ValidationTests.test_failed_evidence_export_retains_container) ... ok
+test_interrupted_command_is_recorded (test_validation.ValidationTests.test_interrupted_command_is_recorded) ... ok
+test_manifest_failure_retains_failed_suite_receipt (test_validation.ValidationTests.test_manifest_failure_retains_failed_suite_receipt) ... ok
+test_nonzero_and_timeout_do_not_pass_and_descendants_are_cleaned (test_validation.ValidationTests.test_nonzero_and_timeout_do_not_pass_and_descendants_are_cleaned) ... ok
+test_normal_parent_exit_cannot_hide_new_session_child (test_validation.ValidationTests.test_normal_parent_exit_cannot_hide_new_session_child) ... ok
+test_snapshot_changes_are_rejected (test_validation.ValidationTests.test_snapshot_changes_are_rejected) ... ok
+test_timeout_is_not_passed_even_when_sigterm_handler_exits_zero (test_validation.ValidationTests.test_timeout_is_not_passed_even_when_sigterm_handler_exits_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 40 tests in 14.301s
+
+OK

@@ -14,5 +14,5 @@ are explicit configuration, not an automatic change to your system resolver.
 
 Keep local state, credentials, environments, raw test failures and personal paths
 out of Git. Publication checking is heuristic. CI uses hosted runners, SHA-pinned
-actions, read-only permissions and no checkout credential persistence. No project
-open-source license is selected yet; third-party terms remain separate.
+actions, read-only permissions and no checkout credential persistence. Original project code is licensed under MIT; see [LICENSE](LICENSE).
+Third-party terms remain separate; see [notices](THIRD_PARTY_NOTICES.md).

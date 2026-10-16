@@ -1,0 +1,1 @@
+Checked 36 planned trials: exact wire answers, arrivals, TTLs, cache/upstream ledgers, RSS and canonical HTML.

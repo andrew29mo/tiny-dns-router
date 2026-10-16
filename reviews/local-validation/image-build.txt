@@ -5,7 +5,7 @@
 #1 DONE 0.0s
 
 #2 [internal] load metadata for docker.io/library/python:3.12.14-slim-bookworm@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e
-#2 DONE 1.2s
+#2 DONE 1.3s
 
 #3 [internal] load .dockerignore
 #3 transferring context: 2B done
@@ -16,37 +16,37 @@
 #4 DONE 0.0s
 
 #5 [internal] load build context
-#5 transferring context: 10.36MB 0.0s done
+#5 transferring context: 10.40MB 0.1s done
 #5 DONE 0.1s
 
 #6 [2/4] WORKDIR /workspace
 #6 CACHED
 
 #7 [3/4] COPY workspace /workspace
-#7 DONE 0.0s
+#7 DONE 0.1s
 
 #8 [4/4] RUN python -m pip install --no-cache-dir -r requirements-dev.txt     && useradd --uid 10001 --create-home validator     && mkdir /evidence && chown -R validator:validator /workspace /evidence
-#8 0.976 Collecting dnspython==2.9.0 (from -r /workspace/requirements.txt (line 1))
-#8 1.124   Downloading dnspython-2.9.0-py3-none-any.whl.metadata (5.7 kB)
-#8 1.274 Collecting psutil==7.0.0 (from -r requirements-dev.txt (line 2))
-#8 1.314   Downloading psutil-7.0.0-cp36-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (22 kB)
-#8 1.366 Downloading dnspython-2.9.0-py3-none-any.whl (354 kB)
-#8 1.506 Downloading psutil-7.0.0-cp36-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (279 kB)
-#8 1.530 Installing collected packages: psutil, dnspython
-#8 1.692 Successfully installed dnspython-2.9.0 psutil-7.0.0
-#8 1.692 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
-#8 1.866
-#8 1.866 [notice] A new release of pip is available: 25.0.1 -> 26.2.1
-#8 1.866 [notice] To update, run: pip install --upgrade pip
+#8 0.910 Collecting dnspython==2.9.0 (from -r /workspace/requirements.txt (line 1))
+#8 1.058   Downloading dnspython-2.9.0-py3-none-any.whl.metadata (5.7 kB)
+#8 1.208 Collecting psutil==7.0.0 (from -r requirements-dev.txt (line 2))
+#8 1.246   Downloading psutil-7.0.0-cp36-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (22 kB)
+#8 1.303 Downloading dnspython-2.9.0-py3-none-any.whl (354 kB)
+#8 1.460 Downloading psutil-7.0.0-cp36-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (279 kB)
+#8 1.489 Installing collected packages: psutil, dnspython
+#8 1.648 Successfully installed dnspython-2.9.0 psutil-7.0.0
+#8 1.648 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#8 1.830
+#8 1.830 [notice] A new release of pip is available: 25.0.1 -> 26.2.1
+#8 1.830 [notice] To update, run: pip install --upgrade pip
 #8 DONE 2.0s
 
 #9 exporting to image
 #9 exporting layers
 #9 exporting layers 0.4s done
-#9 exporting manifest sha256:8db3fc5c2668104ed0ccd376a5a564035dd20324b5615e1a0ce713fe5fb2825d done
-#9 exporting config sha256:b7673ed0673b49c26dbefaff869e8ef44fd306c65c7dd8b92be71f791fdf750f done
-#9 exporting attestation manifest sha256:822e8bf3ee4581afd91d339600187d87d5a9c591a3d88cad9c77f42e5e0e473a done
-#9 exporting manifest list sha256:af05c088debd61050411cd5b7f1c173ca04ca62e7574664c80f7e41a04118f16 done
-#9 naming to docker.io/library/tiny-dns-validation:04f05167c398480d9f1a04ae51ea38c2 done
-#9 unpacking to docker.io/library/tiny-dns-validation:04f05167c398480d9f1a04ae51ea38c2 0.1s done
+#9 exporting manifest sha256:2920c270e4af3e0336912b800eca5573194dd2f3009dbd15445f26d6fbf53ecb done
+#9 exporting config sha256:1e5ba1cf34d3ba9d2784abd5fe81521c1e84f0203719cd3f50ecf9a68d0efbcc done
+#9 exporting attestation manifest sha256:5c2edd6d3a8b5e4b2bc6763cb3df91522bd7167f3dc4c316bad85d7c8d337b5f done
+#9 exporting manifest list sha256:ebf4a4f318d7b57047790a77970baaae7cc9fb8e15d61bd9ba0c57ffd9d888f3 done
+#9 naming to docker.io/library/tiny-dns-validation:6d06d5cf3e584d118ec07af933205f52 done
+#9 unpacking to docker.io/library/tiny-dns-validation:6d06d5cf3e584d118ec07af933205f52 0.1s done
 #9 DONE 0.5s

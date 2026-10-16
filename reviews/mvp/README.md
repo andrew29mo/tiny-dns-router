@@ -1,5 +1,8 @@
 # Historical MVP validation evidence
 
+License snapshot: this historical review predates MIT adoption. Its original
+receipts are unchanged; the current project license is [MIT](../../LICENSE).
+
 This receipt describes source at `e04ef6a` (implementation `0a6fc55`). Its
 unchanged JSON/HTML are now in `results/historical-mvp-e04ef6a/`. For current
 source and results, see `reviews/dns-review/README.md`.

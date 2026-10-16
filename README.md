@@ -104,20 +104,20 @@ Values below are medians across all three blocks, not confidence intervals.
 
 | Transport | Workload | Cache | p50 ms | p95 ms | Completed QPS | Upstream queries | Peak RSS MiB |
 |---|---|---|---:|---:|---:|---:|---:|
-| udp | repeat | off | 7.238 | 8.113 | 328.5 | 120 | 29.95 |
-| udp | repeat | on | 0.729 | 1.631 | 335.4 | 4 | 29.97 |
-| udp | unique | off | 7.326 | 8.225 | 328.5 | 120 | 29.98 |
-| udp | unique | on | 7.445 | 8.471 | 328.2 | 120 | 30.22 |
-| udp | failover | off | 37.511 | 40.134 | 303.3 | 240 | 30.08 |
-| udp | failover | on | 0.756 | 37.622 | 335.2 | 32 | 30.08 |
-| tcp | repeat | off | 7.684 | 8.616 | 328.3 | 120 | 29.98 |
-| tcp | repeat | on | 0.730 | 1.549 | 335.1 | 4 | 29.91 |
-| tcp | unique | off | 7.770 | 11.718 | 328.7 | 120 | 30.11 |
-| tcp | unique | on | 7.441 | 8.636 | 328.1 | 120 | 30.19 |
-| tcp | failover | off | 37.582 | 38.511 | 303.3 | 240 | 30.22 |
-| tcp | failover | on | 0.653 | 38.223 | 335.3 | 32 | 30.08 |
+| udp | repeat | off | 7.331 | 8.626 | 328.8 | 120 | 30.05 |
+| udp | repeat | on | 0.688 | 1.648 | 335.0 | 4 | 29.97 |
+| udp | unique | off | 7.465 | 8.490 | 328.5 | 120 | 29.98 |
+| udp | unique | on | 7.270 | 8.538 | 328.6 | 120 | 30.00 |
+| udp | failover | off | 37.541 | 38.592 | 303.3 | 240 | 30.06 |
+| udp | failover | on | 0.664 | 38.145 | 335.4 | 32 | 29.98 |
+| tcp | repeat | off | 7.480 | 8.708 | 328.1 | 120 | 29.98 |
+| tcp | repeat | on | 0.713 | 1.340 | 335.4 | 4 | 30.00 |
+| tcp | unique | off | 7.414 | 8.348 | 328.4 | 120 | 29.91 |
+| tcp | unique | on | 7.408 | 8.507 | 328.5 | 120 | 29.98 |
+| tcp | failover | off | 37.688 | 38.986 | 303.3 | 240 | 30.16 |
+| tcp | failover | on | 0.715 | 38.170 | 335.2 | 32 | 30.14 |
 
-Correct responses: 4320/4320. Maximum client issue lag: 26.75 ms; maximum RSS sample gap: 28.76 ms.
+Correct responses: 4320/4320. Maximum client issue lag: 4.42 ms; maximum RSS sample gap: 15.72 ms.
 
 Completed QPS reflects this fixed offered load, not maximum service capacity.
 RSS covers only the sampled proxy process. These data do not establish Internet latency,
@@ -137,9 +137,13 @@ is recorded above; it is not a substitute claim of hosted CI or native Linux har
 
 ## Status and license
 
-Private MVP. No project open-source license selected; no root `LICENSE` file is
-present, and `pyproject.toml` declares no project license. Dependencies retain their
-own terms; see [third-party notices](THIRD_PARTY_NOTICES.md). No private network
-captures or external datasets are used in the retained synthetic DNS experiments.
+Private MVP. Original project code and documentation are licensed under the
+[MIT License](LICENSE), copyright (c) 2026 Andrew Yuan. `pyproject.toml` declares
+MIT and lists the license and third-party notice files. Dependencies and
+validation tooling retain their own licenses; see
+[third-party notices](THIRD_PARTY_NOTICES.md). No private network captures or
+external datasets are used in the retained synthetic DNS experiments.
+Historical review receipts preserve their license state at the time of review.
+See [MIT adoption verification](reviews/mit-adoption/README.md).
 
-[Final prepublication review](reviews/prepublication/README.md).
+[Pre-MIT prepublication review](reviews/prepublication/README.md).

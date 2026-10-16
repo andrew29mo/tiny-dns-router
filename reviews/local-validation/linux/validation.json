@@ -11,7 +11,7 @@
     "dnsrouter/cache.py": "a7c8e61e5dc6841d3d5ef6e63653b66cccf5ad417f891f31a2d6bb173826cd10",
     "dnsrouter/config.py": "2677f08131a8836a0ba823387218313dfad8fcad58a83308be462630d69e9a59",
     "dnsrouter/service.py": "96a8aee03909f07440ddd9d9888ce417947eaeb3bb844ba2d632f7ad2406dee9",
-    "pyproject.toml": "7de4b5217ca680dd73a4385a2388fe57d5c4f3fa820fba15256d94290c3d6752",
+    "pyproject.toml": "1686260e15b49fd6b71dc6902dfb6d33f285a1a016f50bb2d213565738971e96",
     "requirements-dev.txt": "e06e6e1a18d7a05d34fcea99cf193944774df012d5a9adb5201ce72ccb88dd10",
     "requirements.txt": "903301d2f436b395481f823123fdbf2d858b1184c286460e4a04a99f4c665eb2",
     "tests/support.py": "7ae73acbc7af31476c8046fdd28bfabaec5c869f1e07c9499a50a4547cdec1e4",
@@ -39,9 +39,9 @@
     "benchmark": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 29.589035147,
+      "elapsed_s": 29.297718070000002,
       "log": "benchmark.txt",
-      "log_sha256": "03c51dc141171548e6ee7d11e93a5292b74ddee34d7d709cf23f48d665439ec5",
+      "log_sha256": "9829aab2a8123733e79cd1396a81f82fee9148cf615568f8a6477036f34bc270",
       "reclaimed_orphans": 0,
       "command": [
         "/usr/local/bin/python",
@@ -58,7 +58,7 @@
     "report": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 0.32940846900000054,
+      "elapsed_s": 0.3345433650000018,
       "log": "report.txt",
       "log_sha256": "1f0329fe1d87a165fb7733073af585ac0c36cd82a8891c1bedb414c77ff287b9",
       "reclaimed_orphans": 0,
@@ -72,9 +72,9 @@
     "tests": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 14.462783327000004,
+      "elapsed_s": 14.458093388000002,
       "log": "tests.txt",
-      "log_sha256": "9af0c07a358363918c4ffa9568ec5283730c229d72fcdd4172e9a347ca6db566",
+      "log_sha256": "0a3ab432c6f009490da877a3aee4b5bbad1dd0e215c5483b3d8dd26db070f911",
       "reclaimed_orphans": 0,
       "command": [
         "/usr/local/bin/python",
@@ -87,7 +87,7 @@
     "mutations": {
       "status": "passed",
       "exit_code": 0,
-      "elapsed_s": 2.724324029999991,
+      "elapsed_s": 2.7219069860000005,
       "log": "mutations.txt",
       "log_sha256": "c9f3269c8b1ba2894bd058e3ede484219a0869e0171b9487d43a98d3b19c21d1",
       "reclaimed_orphans": 0,

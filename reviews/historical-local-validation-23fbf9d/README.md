@@ -1,5 +1,8 @@
 # Historical local validation at 23fbf9d
 
+License snapshot: this historical review predates MIT adoption. Its original
+receipts are unchanged; the current project license is [MIT](../../LICENSE).
+
 These are unchanged pre-audit measurements and receipts. Check with the validator
 from `23fbf9d`; current code requires stronger test/exit evidence. Current results
 are in `reviews/local-validation/`. The original README follows.

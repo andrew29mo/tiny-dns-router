@@ -1,5 +1,8 @@
 # Prepublication review
 
+License snapshot: this historical review predates MIT adoption. Its original
+receipts are unchanged; the current project license is [MIT](../../LICENSE).
+
 Reviewed base `ab8634a`. No new production, test, tool or dependency changes were
 needed. Documentation now explicitly distinguishes invocation latency from
 scheduled latency, clarifies that NXDOMAIN/NODATA are cached while SERVFAIL and

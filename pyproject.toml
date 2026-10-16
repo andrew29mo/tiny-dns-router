@@ -2,5 +2,7 @@
 name = "tiny-dns-router"
 version = "0.1.0"
 description = "Experimental local DNS suffix router with bounded TTL-aware caching"
+license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
 requires-python = ">=3.12"
 dependencies = ["dnspython==2.9.0"]
