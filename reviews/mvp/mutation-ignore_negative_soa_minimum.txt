@@ -1,0 +1,21 @@
+test_live_negative_soa_minimum_is_enforced (test_network.NetworkTests.test_live_negative_soa_minimum_is_enforced) ... FAIL
+
+======================================================================
+FAIL: test_live_negative_soa_minimum_is_enforced (test_network.NetworkTests.test_live_negative_soa_minimum_is_enforced)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<home>/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "<repository>/results/local/fault-u2tuef4b/tests/test_network.py", line 139, in test_live_negative_soa_minimum_is_enforced
+    r=await query(s.port,name);self.assertEqual(r.authority[0].ttl,3)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 30 != 3
+
+----------------------------------------------------------------------
+Ran 1 test in 0.010s
+
+FAILED (failures=1)

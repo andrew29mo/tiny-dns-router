@@ -1,0 +1,29 @@
+test_cname_and_lru_byte_limits (test_cache.CacheTests.test_cname_and_lru_byte_limits) ... ok
+test_longest_label_suffix_and_validation (test_cache.CacheTests.test_longest_label_suffix_and_validation) ... ok
+test_positive_zero_and_negative_soa_minimum (test_cache.CacheTests.test_positive_zero_and_negative_soa_minimum) ... ok
+test_query_flags_and_edns_partition (test_cache.CacheTests.test_query_flags_and_edns_partition) ... ok
+test_ttl_boundary_age_id_case_and_no_mutation (test_cache.CacheTests.test_ttl_boundary_age_id_case_and_no_mutation) ... ok
+test_abnormal_process_exit_is_rejected (test_harness.HarnessTests.test_abnormal_process_exit_is_rejected) ... ok
+test_manifest_or_trial_failure_invalidates_old_json_and_html (test_harness.HarnessTests.test_manifest_or_trial_failure_invalidates_old_json_and_html) ... ok
+test_all_timeouts_servfail_and_no_negative_cache (test_network.NetworkTests.test_all_timeouts_servfail_and_no_negative_cache) ... ok
+test_bad_id_is_not_cached_and_fails_over (test_network.NetworkTests.test_bad_id_is_not_cached_and_fails_over) ... ok
+test_graceful_and_forced_shutdown_ledger (test_network.NetworkTests.test_graceful_and_forced_shutdown_ledger) ... ok
+test_idle_tcp_cannot_extend_shutdown_deadline (test_network.NetworkTests.test_idle_tcp_cannot_extend_shutdown_deadline) ... ok
+test_live_eviction_and_tcp_connection_bound (test_network.NetworkTests.test_live_eviction_and_tcp_connection_bound) ... ok
+test_live_negative_soa_minimum_is_enforced (test_network.NetworkTests.test_live_negative_soa_minimum_is_enforced) ... ok
+test_live_ttl_expiry_negative_and_uncacheable (test_network.NetworkTests.test_live_ttl_expiry_negative_and_uncacheable) ... ok
+test_malformed_udp_and_oversized_tcp_do_not_kill_service (test_network.NetworkTests.test_malformed_udp_and_oversized_tcp_do_not_kill_service) ... ok
+test_overload_is_bounded_and_recovers (test_network.NetworkTests.test_overload_is_bounded_and_recovers) ... ok
+test_process_bootstrap_identity_shutdown_and_metrics (test_network.NetworkTests.test_process_bootstrap_identity_shutdown_and_metrics) ... ok
+test_real_udp_tcp_a_aaaa_and_suffix (test_network.NetworkTests.test_real_udp_tcp_a_aaaa_and_suffix) ... ok
+test_tcp_pipelined_order_fragmentation_and_idle_close (test_network.NetworkTests.test_tcp_pipelined_order_fragmentation_and_idle_close) ... ok
+test_timeout_failover_same_suffix_udp_and_tcp (test_network.NetworkTests.test_timeout_failover_same_suffix_udp_and_tcp) ... ok
+test_udp_tc_fallback_and_client_truncation (test_network.NetworkTests.test_udp_tc_fallback_and_client_truncation) ... ok
+test_bad_wire_answer_rss_and_counts_rejected (test_report.ReportTests.test_bad_wire_answer_rss_and_counts_rejected) ... ok
+test_complete_production_report (test_report.ReportTests.test_complete_production_report) ... ok
+test_missing_block_and_reordered_rows_rejected (test_report.ReportTests.test_missing_block_and_reordered_rows_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 2.857s
+
+OK

@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+results/local/
+AGENTS.md
+.codex/
+.agents/
+.env*
+.DS_Store
+*.log
