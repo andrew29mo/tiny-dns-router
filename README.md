@@ -130,14 +130,15 @@ The [earlier correctness review](reviews/dns-review/README.md) is retained with 
 This grid compares this implementation with caching disabled/enabled. It is not
 an independent resolver comparison or a benchmark against CoreDNS/Unbound.
 
-The [first hosted CI run](https://github.com/andrew29mo/tiny-dns-router/actions/runs/38863471472)
-was blocked by GitHub account billing/spending restrictions before any steps ran
-on Linux or macOS. Native macOS validation is retained; hosted success is not claimed. Separate local Linux-container validation
-is recorded above; it is not a substitute claim of hosted CI or native Linux hardware.
+The [first private hosted CI run](https://github.com/andrew29mo/tiny-dns-router/actions/runs/38863471472)
+was blocked by account billing/spending restrictions before steps ran. See the
+[current hosted workflow](https://github.com/andrew29mo/tiny-dns-router/actions/workflows/ci.yml)
+for current CI state. Local macOS/Colima validation is reported separately and
+does not imply a hosted runner or native Linux hardware result.
 
 ## Status and license
 
-Private MVP. Original project code and documentation are licensed under the
+Public experimental MVP. Original project code and documentation are licensed under the
 [MIT License](LICENSE), copyright (c) 2026 Andrew Yuan. `pyproject.toml` declares
 MIT and lists the license and third-party notice files. Dependencies and
 validation tooling retain their own licenses; see
@@ -147,3 +148,5 @@ Historical review receipts preserve their license state at the time of review.
 See [MIT adoption verification](reviews/mit-adoption/README.md).
 
 [Pre-MIT prepublication review](reviews/prepublication/README.md).
+
+[Publication and security verification](reviews/publication/README.md).

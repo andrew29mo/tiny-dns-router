@@ -37,4 +37,5 @@ or hosted-CI success is inferred.
 Pre-MIT source/measurement records remain in
 `reviews/historical-validation-pre-mit-e0c3a1f/`; historical receipts retain their
 then-unselected license state. See [MIT adoption](../mit-adoption/README.md) and
-[workflow details](../../docs/LOCAL_VALIDATION.md). GitHub remains Private.
+[workflow details](../../docs/LOCAL_VALIDATION.md). These validation runs were recorded while Private; the repository is now Public.
+See [publication verification](../publication/README.md).

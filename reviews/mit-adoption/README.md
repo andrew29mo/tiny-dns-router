@@ -1,5 +1,9 @@
 # MIT adoption verification
 
+This is the historical adoption snapshot, recorded while Private. Its receipt
+is unchanged; the repository is now Public. See
+[publication verification](../publication/README.md).
+
 The owner explicitly selected MIT. Root `LICENSE` contains the standard MIT grant
 with copyright (c) 2026 Andrew Yuan. README, SECURITY, third-party notices and
 `pyproject.toml` now agree: original project code/documentation is MIT;

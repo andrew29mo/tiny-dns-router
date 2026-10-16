@@ -1,0 +1,154 @@
+{
+  "repository": {
+    "full_name": "andrew29mo/tiny-dns-router",
+    "visibility": "public",
+    "private": false,
+    "default_branch": "main",
+    "security_and_analysis": {
+      "secret_scanning": {
+        "status": "enabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "enabled"
+      },
+      "dependabot_security_updates": {
+        "status": "enabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    }
+  },
+  "actions": {
+    "enabled": true,
+    "allowed_actions": "selected",
+    "selected_actions_url": "https://api.github.com/repositories/1421765342/actions/permissions/selected-actions",
+    "sha_pinning_required": true
+  },
+  "allowed_actions": {
+    "github_owned_allowed": false,
+    "patterns_allowed": [
+      "actions/checkout@*",
+      "actions/setup-python@*"
+    ],
+    "verified_allowed": false
+  },
+  "workflow_permissions": {
+    "default_workflow_permissions": "read",
+    "can_approve_pull_request_reviews": false
+  },
+  "fork_pr_approval": {
+    "approval_policy": "all_external_contributors"
+  },
+  "dependabot_alerts_enabled": true,
+  "dependabot_security_updates": {
+    "enabled": true,
+    "paused": false
+  },
+  "rulesets": [
+    {
+      "id": 25225315,
+      "name": "Main CI with solo maintainer bypass",
+      "target": "branch",
+      "source_type": "Repository",
+      "source": "andrew29mo/tiny-dns-router",
+      "enforcement": "active",
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/main"
+          ]
+        }
+      },
+      "rules": [
+        {
+          "type": "required_status_checks",
+          "parameters": {
+            "strict_required_status_checks_policy": true,
+            "do_not_enforce_on_create": false,
+            "required_status_checks": [
+              {
+                "context": "test (ubuntu-latest)",
+                "integration_id": 15368
+              },
+              {
+                "context": "test (macos-latest)",
+                "integration_id": 15368
+              }
+            ]
+          }
+        }
+      ],
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5UvmrezgGA6GM",
+      "created_at": "2026-10-16T15:55:15.344+08:00",
+      "updated_at": "2026-10-16T15:55:15.455+08:00",
+      "bypass_actors": [
+        {
+          "actor_id": 5,
+          "actor_type": "RepositoryRole",
+          "bypass_mode": "always"
+        }
+      ],
+      "current_user_can_bypass": "always",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/andrew29mo/tiny-dns-router/rulesets/25225315"
+        },
+        "html": {
+          "href": "https://github.com/andrew29mo/tiny-dns-router/rules/25225315"
+        }
+      }
+    },
+    {
+      "id": 25225313,
+      "name": "Protect main history",
+      "target": "branch",
+      "source_type": "Repository",
+      "source": "andrew29mo/tiny-dns-router",
+      "enforcement": "active",
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/main"
+          ]
+        }
+      },
+      "rules": [
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5UvmrezgGA6GE",
+      "created_at": "2026-10-16T15:55:14.625+08:00",
+      "updated_at": "2026-10-16T15:55:14.647+08:00",
+      "bypass_actors": [],
+      "current_user_can_bypass": "never",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/andrew29mo/tiny-dns-router/rulesets/25225313"
+        },
+        "html": {
+          "href": "https://github.com/andrew29mo/tiny-dns-router/rules/25225313"
+        }
+      }
+    }
+  ],
+  "collaborators": [
+    {
+      "login": "andrew29mo",
+      "role_name": "admin"
+    }
+  ],
+  "open_secret_scanning_alerts_observed": 0,
+  "open_dependabot_alerts_observed": 0,
+  "deploy_key_count": 0,
+  "actions_secret_count": 0
+}

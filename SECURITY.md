@@ -16,3 +16,19 @@ Keep local state, credentials, environments, raw test failures and personal path
 out of Git. Publication checking is heuristic. CI uses hosted runners, SHA-pinned
 actions, read-only permissions and no checkout credential persistence. Original project code is licensed under MIT; see [LICENSE](LICENSE).
 Third-party terms remain separate; see [notices](THIRD_PARTY_NOTICES.md).
+
+## Repository safeguards at publication
+
+Secret scanning and push protection are enabled, along with Dependabot alerts,
+security updates and the weekly dependency/action update configuration. Main
+cannot be deleted or force-pushed. Linux/macOS CI checks are required by a separate
+ruleset with an admin bypass for the solo maintainer; this bypass does not apply
+to the history ruleset. External contributors require approval before Actions
+runs. Workflow tokens default to read-only and cannot approve PRs; only the pinned
+checkout/setup-python actions are allowed. No additional write collaborators,
+deploy keys or Actions secrets were present at publication. Public visibility
+allows reading/forking and contribution proposals, not direct repository writes.
+
+Settings and observed alert counts are recorded in
+[publication evidence](reviews/publication/README.md). Enabled scanning and zero
+observed alerts are not a comprehensive security guarantee for this DNS service.
