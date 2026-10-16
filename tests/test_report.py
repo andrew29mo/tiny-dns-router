@@ -30,3 +30,19 @@ class ReportTests(unittest.TestCase):
             elif change=='source':r['source_files']['dnsrouter/cache.py']='0'*64
             else:r['status']='failed'
             with self.subTest(change=change),self.assertRaises((ValueError,dns.exception.DNSException)):verify(r)
+    def test_invalid_counters_peer_binding_and_scheduled_latency_rejected(self):
+        for change in ['negative_bytes','errors','unsupported','negative_hits','route_port','peer_delay','scheduled','nan_time','infinite_cpu','truncated']:
+            r=copy.deepcopy(self.report);t=r['trials'][0];m=t['proxy_metrics']
+            if change=='negative_bytes':m['cache_wire_bytes']=-1
+            elif change=='errors':m['upstream_errors']=999
+            elif change=='unsupported':m['unsupported']=999
+            elif change=='negative_hits':m['negative_hits']=121
+            elif change=='route_port':t['actual_config']['routes'][0]['upstreams'][0]['port']=1
+            elif change=='peer_delay':t['upstream_readiness'][0]['delay_s']=.001
+            elif change=='scheduled':t['scheduled_p95_s']+=.01
+            elif change=='nan_time':t['flows'][0]['finished_s']=float('nan')
+            elif change=='infinite_cpu':t['samples'][0]['cpu']=float('inf')
+            else:
+                response=dns.message.from_wire(bytes.fromhex(t['flows'][0]['wire_hex']))
+                response.flags|=dns.flags.TC;t['flows'][0]['wire_hex']=response.to_wire().hex()
+            with self.subTest(change=change),self.assertRaises(ValueError):verify(r)

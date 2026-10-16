@@ -1,0 +1,20 @@
+test_truncated_tcp_response_fails_over_and_is_not_cached (test_network.NetworkTests.test_truncated_tcp_response_fails_over_and_is_not_cached) ... FAIL
+
+======================================================================
+FAIL: test_truncated_tcp_response_fails_over_and_is_not_cached (test_network.NetworkTests.test_truncated_tcp_response_fails_over_and_is_not_cached)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<home>/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "<repo>/tests/test_network.py", line 187, in test_truncated_tcp_response_fails_over_and_is_not_cached
+    self.assertFalse(r.flags & dns.flags.TC)
+AssertionError: <Flag.TC: 512> is not false
+
+----------------------------------------------------------------------
+Ran 1 test in 0.015s
+
+FAILED (failures=1)

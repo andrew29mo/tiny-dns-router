@@ -11,7 +11,7 @@ def need(ok,message):
     if not ok:raise ValueError(message)
 
 
-def close(a,b):need(isinstance(a,(int,float)) and math.isfinite(a) and math.isclose(a,b,rel_tol=1e-9,abs_tol=1e-9),'numeric mismatch')
+def close(a,b):need(type(a) in [int,float] and math.isfinite(a) and math.isclose(a,b,rel_tol=1e-9,abs_tol=1e-9),'numeric mismatch')
 
 
 def verify(r,current=True):
@@ -31,27 +31,43 @@ def verify(r,current=True):
         for i,f in enumerate(fs):
             need((f['name'],f['type'])==question(i,spec['scenario']) and f['request_id']==1000+i,'query differs')
             close(f['planned_s'],i*INTERVAL)
+            need(all(type(f[k]) in [int,float] and math.isfinite(f[k]) for k in ['planned_s','issued_s','finished_s']),'nonfinite timestamps')
             need(f['issued_s']>=f['planned_s']-.001 and f['finished_s']>=f['issued_s'],'timestamps')
             need(f['status']=='correct' and f['actual']==expected(i,spec['scenario']),'wrong answer')
             response=dns.message.from_wire(bytes.fromhex(f['wire_hex']))
             need(response.id==1000+i and summary(response)==f['actual'],'wire receipt')
             q=dns.message.make_query(f['name'],f['type']);q.id=1000+i
             need(q.is_response(response),'question mismatch')
+            need(response.flags==int(dns.flags.QR|dns.flags.RD|dns.flags.RA)|(3 if i%4==2 else 0) and not response.additional and response.edns==-1,'unexpected wire flags or sections')
             need(all(0<=rr.ttl<=(3 if i%4 in [2,3] else 120) for sec in [response.answer,response.authority] for rr in sec),'TTL bounds')
         close(t['elapsed_s'],max(f['finished_s'] for f in fs));close(t['completed_qps'],COUNT/t['elapsed_s'])
         latency=[f['finished_s']-f['issued_s'] for f in fs]
+        close(t['scheduled_p50_s'],percentile([f['finished_s']-f['planned_s'] for f in fs],.5));close(t['scheduled_p95_s'],percentile([f['finished_s']-f['planned_s'] for f in fs],.95))
         close(t['latency_p50_s'],percentile(latency,.5));close(t['latency_p95_s'],percentile(latency,.95));close(t['max_issue_lag_s'],max(f['issued_s']-f['planned_s'] for f in fs))
         need(t['correct']==COUNT,'correct count')
         ss=t['samples'];need(len(ss)>2 and ss[0]['t']<=0 and ss[-1]['t']>=t['elapsed_s'],'sample coverage')
-        need(all(s['rss']>0 and s['cpu']>=0 and math.isfinite(s['t']) for s in ss),'invalid samples')
+        need(all(type(s['rss']) is int and s['rss']>0 and type(s['cpu']) in [int,float] and math.isfinite(s['cpu']) and s['cpu']>=0 and math.isfinite(s['t']) for s in ss),'invalid samples')
         need(all(a['t']<=b['t'] and a['cpu']<=b['cpu'] for a,b in zip(ss,ss[1:])),'sample order')
         need(t['peak_rss']==max(s['rss'] for s in ss) and t['baseline_rss']==ss[0]['rss'] and t['rss_growth']==t['peak_rss']-t['baseline_rss'],'RSS')
         close(t['cpu_seconds'],ss[-1]['cpu']-ss[0]['cpu']);close(t['max_sample_gap_s'],max(b['t']-a['t'] for a,b in zip(ss,ss[1:])))
-        m=t['proxy_metrics'];need(m['requests']==COUNT and m['completed']==COUNT and all(m[k]==0 for k in ['cancelled','rejected','active','internal_errors','malformed','tcp_connections']),'request accounting')
+        m=t['proxy_metrics']
+        need(all(type(v) is int and v>=0 for k,v in m.items() if k not in ['elapsed_s','routes']),'invalid proxy counter')
+        need(type(m['elapsed_s']) in [int,float] and math.isfinite(m['elapsed_s']) and m['elapsed_s']>0,'metrics elapsed')
+        need(set(m['routes'])=={'.','lab.test.'} and all(type(v) is int and v>=0 for v in m['routes'].values()),'route counters')
+        need(all(m[k]==0 for k in ['unsupported','upstream_errors','upstream_exhausted','tcp_fallbacks','tcp_rejected','tcp_protocol_errors','cache_expired']),'unexpected errors or cache expiry')
+        need(m['negative_hits']<=min(60,m['cache_hits']) and m['peak_cache_wire_bytes']>=m['cache_wire_bytes'] and m['peak_tcp_connections']<=cfg['max_tcp_connections'],'counter bounds')
+        need(m['requests']==COUNT and m['completed']==COUNT and all(m[k]==0 for k in ['cancelled','rejected','active','internal_errors','malformed','tcp_connections']),'request accounting')
         need(m['cache_hits']+m['cache_misses']==COUNT and m['cache_misses']==m['routes']['.']+m['routes']['lab.test.'],'cache ledger')
         need(m['cache_entries']<=cfg['cache_entries'] and m['cache_wire_bytes']<=cfg['cache_bytes'] and m['peak_cache_wire_bytes']<=cfg['cache_bytes'] and m['peak_active']<=cfg['max_inflight'],'resource bounds')
         counts=t['upstream_counts'];need(len(counts)==(3 if spec['scenario']=='failover' else 2),'peer counts')
         need(all(type(v) is int and v>=0 for c in counts for v in c.values()),'peer counters')
+        peers=t['upstream_readiness'];need(len(peers)==len(counts) and len({p['port'] for p in peers})==len(peers),'peer identities')
+        for i,p in enumerate(peers):
+            need(p==dict(port=p['port'],marker=10 if i==0 or i==2 else 20,delay_s=0. if i==2 else .006,drop=i==2,truncate=False),'peer configuration')
+        for route in routes:
+            ports=([peers[2]['port']] if spec['scenario']=='failover' else [])+[peers[1 if route['suffix']=='lab.test.' else 0]['port']]
+            need([u['port'] for u in route['upstreams']]==ports,'route peer binding')
+        need(all(set(c)=={'udp','tcp'} for c in counts),'peer counter fields')
         other='tcp' if spec['protocol']=='udp' else 'udp'
         need(all(c[other]==0 for c in counts),'wrong upstream transport')
         need(sum(counts[0].values())==m['routes']['.'] and sum(counts[1].values())==m['routes']['lab.test.'],'upstream route accounting')

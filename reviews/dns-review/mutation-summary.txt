@@ -1,0 +1,5 @@
+suffix_label_boundary: detected
+expired_cache_reused: detected
+ignore_negative_soa_minimum: detected
+accept_truncated_tcp: detected
+ignore_wire_byte_budget: detected

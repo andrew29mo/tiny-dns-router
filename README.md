@@ -37,7 +37,7 @@ a stale ready file alone is not proof the service is alive.
 - Numeric IPv4 upstream addresses; UDP and TCP share one loopback port.
 - TCP clients use TCP upstreams. UDP replies with TC trigger upstream TCP fallback.
 - Sequential failover on transport errors, timeout or invalid response; valid DNS
-  error responses retain their meaning. A valid NXDOMAIN does not trigger failover.
+  error responses retain their meaning. Truncated TCP replies are incomplete and trigger failover; A valid NXDOMAIN does not trigger failover.
 - A/AAAA response cache, including CNAME chains. NXDOMAIN/NODATA caching requires
   an ancestor SOA and uses its TTL/MINIMUM conservatively. SERVFAIL, zero-TTL,
   truncated and unsupported cache shapes are not stored. Cache hits age every RRset.
@@ -45,7 +45,9 @@ a stale ready file alone is not proof the service is alive.
   limits on Python/process/kernel memory. Active requests and TCP connections
   are separately bounded; overload produces SERVFAIL or closes excess TCP connections.
 - `metrics.json` includes upstream attempts/timeouts, cache hits/misses/evictions,
-  active/rejected/cancelled requests and current cache wire bytes.
+  active/rejected/cancelled requests and current cache wire bytes. Attempts count
+  upstream destinations; a UDP-to-TCP fallback is counted separately. Completed
+  requests count processing, while the benchmark independently checks receipt.
 
 Configuration loads at startup; restart to change routes (the cache starts empty).
 No recursive resolution, DNSSEC validation, TSIG, zone transfers, DoH/DoT,
@@ -66,7 +68,9 @@ establish DNS authenticity. See [architecture](docs/ARCHITECTURE.md) and
 Network tests invoke the same production `Server` path over real UDP/TCP sockets;
 a separate subprocess test checks the actual module entry point, source identity,
 exit status, readiness cleanup and request ledger. Monotonic-clock unit tests
-also verify exact expiration and TTL aging boundaries. Report tampering tests
+also verify exact expiration and TTL aging boundaries. Additional network regressions cover negative expiration, byte-budget eviction,
+CNAME lifetime, query-flag partitioning, shared UDP/TCP fallback deadlines and
+forced TCP shutdown. Report tampering tests
 reject missing trials, forged answers/resources, changed config and stale sources.
 Mutation tests deliberately break production behavior and require actual network
 assertions to fail. Expected mutation failures are not release-test failures.
@@ -81,20 +85,20 @@ Values below are medians across all three blocks, not confidence intervals.
 
 | Transport | Workload | Cache | p50 ms | p95 ms | Completed QPS | Upstream queries | Peak RSS MiB |
 |---|---|---|---:|---:|---:|---:|---:|
-| udp | repeat | off | 7.532 | 8.607 | 328.3 | 120 | 30.00 |
-| udp | repeat | on | 0.657 | 1.683 | 335.2 | 4 | 30.17 |
-| udp | unique | off | 7.598 | 11.021 | 328.1 | 120 | 30.17 |
-| udp | unique | on | 7.355 | 8.375 | 328.7 | 120 | 30.00 |
-| udp | failover | off | 37.478 | 38.845 | 303.1 | 240 | 30.12 |
-| udp | failover | on | 0.742 | 38.173 | 335.0 | 32 | 30.08 |
-| tcp | repeat | off | 7.473 | 8.568 | 328.4 | 120 | 29.98 |
-| tcp | repeat | on | 0.795 | 1.629 | 335.3 | 4 | 29.91 |
-| tcp | unique | off | 7.569 | 8.725 | 328.5 | 120 | 29.91 |
-| tcp | unique | on | 7.448 | 9.323 | 328.1 | 120 | 30.05 |
-| tcp | failover | off | 37.723 | 39.340 | 303.4 | 240 | 30.12 |
-| tcp | failover | on | 0.722 | 38.077 | 335.2 | 32 | 30.11 |
+| udp | repeat | off | 7.457 | 9.145 | 327.6 | 120 | 29.94 |
+| udp | repeat | on | 0.749 | 1.926 | 334.4 | 4 | 29.89 |
+| udp | unique | off | 7.579 | 8.912 | 327.8 | 120 | 29.98 |
+| udp | unique | on | 7.556 | 8.650 | 327.3 | 120 | 29.97 |
+| udp | failover | off | 37.779 | 39.621 | 302.2 | 240 | 30.19 |
+| udp | failover | on | 0.675 | 38.641 | 334.9 | 32 | 30.06 |
+| tcp | repeat | off | 7.621 | 9.003 | 327.4 | 120 | 29.94 |
+| tcp | repeat | on | 0.883 | 1.982 | 334.6 | 4 | 29.95 |
+| tcp | unique | off | 7.676 | 8.909 | 327.7 | 120 | 29.83 |
+| tcp | unique | on | 7.669 | 9.117 | 327.6 | 120 | 29.94 |
+| tcp | failover | off | 37.804 | 39.409 | 302.6 | 240 | 30.09 |
+| tcp | failover | on | 0.862 | 39.043 | 335.0 | 32 | 30.12 |
 
-Correct responses: 4320/4320. Maximum client issue lag: 9.00 ms; maximum RSS sample gap: 19.40 ms.
+Correct responses: 4320/4320. Maximum client issue lag: 2.48 ms; maximum RSS sample gap: 12.31 ms.
 
 Completed QPS reflects this fixed offered load, not maximum service capacity.
 RSS covers only the sampled proxy process. These data do not establish Internet latency,
@@ -102,7 +106,7 @@ native Linux performance, universal cache benefit or superiority over CoreDNS/Un
 [JSON](results/native-macos/report.json) · [HTML](results/native-macos/report.html)
 <!-- measured:end -->
 
-See [measurement protocol](docs/MEASUREMENT.md) and [validation evidence](reviews/mvp/README.md).
+See [measurement protocol](docs/MEASUREMENT.md) and [current review evidence](reviews/dns-review/README.md).
 This grid compares this implementation with caching disabled/enabled. It is not
 an independent resolver comparison or a benchmark against CoreDNS/Unbound.
 

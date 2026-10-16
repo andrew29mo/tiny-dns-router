@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "review_base_commit": "e04ef6adb0e5bbe32cb70c5d555debf5ccdbfe69",
+  "source_files": {
+    "dnsrouter/__init__.py": "429a7c513d4357ce616934911fcb759aa67438c33dae8017076cf816f76b4cc2",
+    "dnsrouter/__main__.py": "af8deb82c0a07de23139ba5e5610532b9cdcc85e46399f78c564c06887994f30",
+    "dnsrouter/cache.py": "a7c8e61e5dc6841d3d5ef6e63653b66cccf5ad417f891f31a2d6bb173826cd10",
+    "dnsrouter/config.py": "2677f08131a8836a0ba823387218313dfad8fcad58a83308be462630d69e9a59",
+    "dnsrouter/service.py": "96a8aee03909f07440ddd9d9888ce417947eaeb3bb844ba2d632f7ad2406dee9",
+    "pyproject.toml": "7de4b5217ca680dd73a4385a2388fe57d5c4f3fa820fba15256d94290c3d6752",
+    "requirements-dev.txt": "e06e6e1a18d7a05d34fcea99cf193944774df012d5a9adb5201ce72ccb88dd10",
+    "requirements.txt": "903301d2f436b395481f823123fdbf2d858b1184c286460e4a04a99f4c665eb2",
+    "tests/support.py": "7ae73acbc7af31476c8046fdd28bfabaec5c869f1e07c9499a50a4547cdec1e4",
+    "tests/test_cache.py": "ab86947d23c255cbfc2f03e30749d4b249cc348dfeaf51a87039bf9544edb86a",
+    "tests/test_harness.py": "b552172b655fc47fb42453d18a7ed432db8a42a589c2f331b5e79bdeff66af24",
+    "tests/test_network.py": "69c6510184fc8fdafe8b7e50f8e3783be8ab0ea5a71c1f64e3ddc4d8d8130c84",
+    "tests/test_report.py": "0502038393a0f019b56502b43fefe2210a5d74c12d9d6da84ffe73957050d3c0",
+    "tools/__init__.py": "f8841dc54572353a39d842cab83118d311c86457881eb58d338c38fdb1d629ff",
+    "tools/benchmark.py": "6ca2e01e118e2c33f768492ca8d7e442bee8803b91eb7e4b799ab22ebbdec388",
+    "tools/check_report.py": "5abbe8663df1b1e4821d84b93c659553920c6eb7013a0df5c98cb9ae4c60b4fe",
+    "tools/findings.py": "9ac9838532c2dad184add0bb0141d38dde5384309e666316104ba4fa6f572cfd",
+    "tools/mutation_check.py": "648666db8fc8cab30d1c1fca6d5c5cb5459c51ce0e508d5f0ae192334cffc284",
+    "tools/publication_check.py": "060ebf2e5017985a245c76857f2bad1a7870f831770ced9d08ac73b51de3993a",
+    "tools/query.py": "8e62e43c301a30569e6af72ede4cbcac6a233eba51b0578360a576ddd57d1c9d",
+    "tools/upstream.py": "086f1765694aafaa906e4cf71ed1c2c47bf9ade445db30c4d33e05d69b6bbaed"
+  },
+  "runtime_identity": {
+    "dnsrouter/__init__.py": "429a7c513d4357ce616934911fcb759aa67438c33dae8017076cf816f76b4cc2",
+    "dnsrouter/__main__.py": "af8deb82c0a07de23139ba5e5610532b9cdcc85e46399f78c564c06887994f30",
+    "dnsrouter/cache.py": "a7c8e61e5dc6841d3d5ef6e63653b66cccf5ad417f891f31a2d6bb173826cd10",
+    "dnsrouter/config.py": "2677f08131a8836a0ba823387218313dfad8fcad58a83308be462630d69e9a59",
+    "dnsrouter/service.py": "96a8aee03909f07440ddd9d9888ce417947eaeb3bb844ba2d632f7ad2406dee9",
+    "pyproject.toml": "7de4b5217ca680dd73a4385a2388fe57d5c4f3fa820fba15256d94290c3d6752",
+    "requirements-dev.txt": "e06e6e1a18d7a05d34fcea99cf193944774df012d5a9adb5201ce72ccb88dd10",
+    "requirements.txt": "903301d2f436b395481f823123fdbf2d858b1184c286460e4a04a99f4c665eb2"
+  },
+  "environment": {
+    "label": "Native macOS ARM64 / local DNS controlled peers / DNS review",
+    "os": "Darwin",
+    "release": "27.0.0",
+    "machine": "arm64",
+    "python": "3.12.14",
+    "dnspython": "2.9.0",
+    "psutil": "7.0.0"
+  },
+  "native_tests": {
+    "status": "passed",
+    "python_test_methods": 33
+  },
+  "measurements": {
+    "status": "passed",
+    "planned_trials": 36,
+    "correct_responses": 4320,
+    "offered_responses": 4320,
+    "source_changes_during_measurement": false,
+    "concurrent_heavy_tests": false,
+    "scope": "Native macOS loopback only; fixed offered load, controlled peer delays; no Linux/WAN/maximum-QPS claim"
+  },
+  "report_sha256": {
+    "report.json": "2e8f275a0cda3da1744f445a4f3140bf5ffa5907e131dff089b1aaa9b890e1ae",
+    "report.html": "d78681f1181e0ff3b6f96dcbc7b30603d19f8af79a79ce509fdf45efa6a9c915"
+  },
+  "mutations": [
+    {
+      "fault": "suffix_label_boundary",
+      "test": "test_real_udp_tcp_a_aaaa_and_suffix",
+      "result": "actual-network-assertion-failed-as-required"
+    },
+    {
+      "fault": "expired_cache_reused",
+      "test": "test_live_ttl_expiry_negative_and_uncacheable",
+      "result": "actual-network-assertion-failed-as-required"
+    },
+    {
+      "fault": "ignore_negative_soa_minimum",
+      "test": "test_live_negative_soa_minimum_is_enforced",
+      "result": "actual-network-assertion-failed-as-required"
+    },
+    {
+      "fault": "accept_truncated_tcp",
+      "test": "test_truncated_tcp_response_fails_over_and_is_not_cached",
+      "result": "actual-network-assertion-failed-as-required"
+    },
+    {
+      "fault": "ignore_wire_byte_budget",
+      "test": "test_negative_expiry_and_wire_byte_eviction_over_live_service",
+      "result": "actual-network-assertion-failed-as-required"
+    }
+  ],
+  "published_log_sha256": {
+    "tests.txt": "d53cf983c7423bf9e9a1f5d20f1d57b2cfc2915104838240254dd2f2e4ac362e",
+    "benchmark.txt": "334014fc1211a23667d48360f49d5dd32a842658f755f1a9f4cfb50ca23461e8",
+    "report-check.txt": "76f63aafefdae71ea2e8f7cf10d6cec5acdc83f12fb923619998f8133fd0cec7",
+    "mutation-summary.txt": "c9f3269c8b1ba2894bd058e3ede484219a0869e0171b9487d43a98d3b19c21d1",
+    "truncated-tcp-before.txt": "739193915667d17f199daac35c9e05bcde1ae55f3be411212db8f3c3ff6b4515",
+    "mutation-suffix_label_boundary.txt": "887e588961e7d699b33f55b4d12477d53e92289fd7fa64796dd2857cd5c60991",
+    "mutation-expired_cache_reused.txt": "fefbe54960235726118ff34bb24732c672b495780983de6bd20202992cde118f",
+    "mutation-ignore_wire_byte_budget.txt": "5d926de75adff9ba0506aa61cd64f70d8d5fe5b7e428536fee245244166c65ec",
+    "mutation-accept_truncated_tcp.txt": "865df23f768f167936a689cacc1c1be8e3df8f048961289c9892983e8bc28bc9",
+    "mutation-ignore_negative_soa_minimum.txt": "5f6861e35b686b5a5ff8cd67025d88639e37df00e498d905360600e88829b4dd"
+  },
+  "original_log_sha256": {
+    "tests.txt": "d53cf983c7423bf9e9a1f5d20f1d57b2cfc2915104838240254dd2f2e4ac362e",
+    "benchmark.txt": "334014fc1211a23667d48360f49d5dd32a842658f755f1a9f4cfb50ca23461e8",
+    "report-check.txt": "76f63aafefdae71ea2e8f7cf10d6cec5acdc83f12fb923619998f8133fd0cec7",
+    "mutation-summary.txt": "c9f3269c8b1ba2894bd058e3ede484219a0869e0171b9487d43a98d3b19c21d1",
+    "truncated-tcp-before.txt": "fd2799fe26c939e3cc17238da0d611a8ece3a34b07d0fc3a01f149303e5c3182",
+    "mutation-suffix_label_boundary.txt": "eb021188452d01a57d53fea38d1278e7a2f26b660931392a2f267db6b3b67fb8",
+    "mutation-expired_cache_reused.txt": "11ad2e78b26c8aff1ae0547d7c945abfc5ae1ac843426eb0e4664abe6e6216a2",
+    "mutation-ignore_wire_byte_budget.txt": "04b6e4721bff10f4c5e3d35cdfbf1b44d9b61695e915152c833e0bbe3f3007b7",
+    "mutation-accept_truncated_tcp.txt": "b379f15ba3fa753603b9a8ded50005b71e3a1f41e7caf344d83b8b5dd36e97b0",
+    "mutation-ignore_negative_soa_minimum.txt": "ade85b8ae34258f71edbed233b3294f2b033819ea178c3f0e023d8feef8d1d92"
+  },
+  "log_normalization": "Repository/home prefixes replaced and trailing whitespace stripped; originals remain ignored locally.",
+  "commands": [
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "exit_code": 0
+    },
+    {
+      "command": "python -m tools.benchmark --output results/native-macos --blocks 3 --label <native-label>",
+      "exit_code": 0
+    },
+    {
+      "command": "python -m tools.check_report results/native-macos",
+      "exit_code": 0
+    },
+    {
+      "command": "python -m tools.findings --check",
+      "exit_code": 0
+    },
+    {
+      "command": "python -m tools.mutation_check",
+      "exit_code": 0
+    }
+  ],
+  "license": "unselected",
+  "visibility": "Private",
+  "hosted_ci": "See README; native evidence does not imply hosted/Linux success"
+}

@@ -85,7 +85,7 @@ class ReferenceServer:
 async def main(args):
     state=args.state;state.mkdir(parents=True,exist_ok=True)
     p=ReferenceServer(args.marker,args.delay,args.drop,args.truncate);port=await p.start()
-    (state/'ready.json').write_text(json.dumps({'port':port}))
+    (state/'ready.json').write_text(json.dumps({'port':port,'marker':args.marker,'delay_s':args.delay,'drop':args.drop,'truncate':args.truncate}))
     event=asyncio.Event()
     for sig in [signal.SIGINT,signal.SIGTERM]:asyncio.get_running_loop().add_signal_handler(sig,event.set)
     await event.wait();await p.close()

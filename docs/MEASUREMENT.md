@@ -27,10 +27,13 @@ planned origin, including tails. At this fixed offered load it does not establis
 maximum QPS. For a finite batch, 120 queries have only 119 spacing intervals, so this QPS may
 slightly exceed the reciprocal of the arrival interval without implying higher
 steady-state capacity. Latency is from actual client invocation through response
-validation, including connection setup for TCP. All 120 outcomes remain in every trial. A
+validation, including connection setup for TCP. Scheduled latency is also retained
+and recomputed from planned arrival to completion; it includes client generator
+lag. HTML exposes scheduled p95 beside invocation p95. All 120 outcomes remain in every trial. A
 bad/incomplete trial prevents a passed report; pairs are never selected by result.
 Source manifests cover production/tests/tools and pinned dependency metadata.
-The CLI's runtime identity must agree. Source changes require regeneration.
+The CLI's runtime identity must agree. Peer readiness records retain bound ports,
+markers, delay/drop/truncation settings; the checker binds them to each route. Source changes require regeneration.
 
 Psutil samples only the separate proxy process's RSS/CPU every approximately
 10 ms. Baseline precedes the workload and a final sample follows completion.
@@ -42,10 +45,15 @@ quantity. No cache-induced memory saving or speedup is assumed.
 Artifact state is invalidated before provenance setup. An execution error leaves
 failed JSON without old successful HTML. The checker recomputes complete planned
 order, query data, wire replies, TTL bounds, latency/QPS, samples and proxy/peer
-ledgers and exact HTML. This provides consistency checks, not hostile-producer
+ledgers and exact HTML, rejecting negative counters, unexpected errors, nonfinite
+timings/CPU, truncated replies and changed peer settings. This provides consistency checks, not hostile-producer
 attestation. Normal Python assertions are required for the test/fixture harness;
 optimized validation is refused.
 
 Run timing alone, without concurrent tests or VM build activity. Retained results
 are labelled native macOS; do not infer native Linux, WAN, NIC, energy, hard RSS
 bounds or production DNS-security behavior from this workload.
+
+The original MVP observations are preserved unchanged under
+`results/historical-mvp-e04ef6a/` with their original receipt in `reviews/mvp/`.
+They are historical evidence and do not validate changed source manifests.

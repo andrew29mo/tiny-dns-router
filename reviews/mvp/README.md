@@ -1,4 +1,8 @@
-# MVP validation evidence
+# Historical MVP validation evidence
+
+This receipt describes source at `e04ef6a` (implementation `0a6fc55`). Its
+unchanged JSON/HTML are now in `results/historical-mvp-e04ef6a/`. For current
+source and results, see `reviews/dns-review/README.md`.
 
 Native macOS ARM64: 24 Python test methods passed, including actual UDP/TCP
 production-service tests, production CLI subprocess/readiness/shutdown checks,

@@ -103,14 +103,14 @@ async def trial(spec):
         try:await asyncio.wait_for(asyncio.gather(*(client(i) for i in range(COUNT))),8)
         finally:stop.set();await sampling
         if sample_errors:raise RuntimeError('sampling failed: '+str(sample_errors))
-        sample();ready=worker.ready
+        sample();ready=worker.ready;peer_readiness=[p.ready for p in peers]
         worker.close();metrics=worker.metrics;worker=None
         for p in peers:p.close()
         counts=[p.metrics for p in peers];peers=[]
         flows.sort(key=lambda f:f['index'])
         duration=max(f['finished_s'] for f in flows)
         latencies=[f['finished_s']-f['issued_s'] for f in flows]
-        return spec | dict(runtime_identity=ready['source_files'],actual_config=ready['config'],flows=flows,samples=samples,proxy_metrics=metrics,upstream_counts=counts,upstream_delay_s=.006,offered_queries=COUNT,arrival_interval_s=INTERVAL,elapsed_s=duration,correct=sum(f['status']=='correct' for f in flows),completed_qps=COUNT/duration,latency_p50_s=percentile(latencies,.5),latency_p95_s=percentile(latencies,.95),max_issue_lag_s=max(f['issued_s']-f['planned_s'] for f in flows),baseline_rss=samples[0]['rss'],peak_rss=max(s['rss'] for s in samples),rss_growth=max(s['rss'] for s in samples)-samples[0]['rss'],cpu_seconds=samples[-1]['cpu']-samples[0]['cpu'],max_sample_gap_s=max(b['t']-a['t'] for a,b in zip(samples,samples[1:])))
+        return spec | dict(runtime_identity=ready['source_files'],actual_config=ready['config'],flows=flows,samples=samples,proxy_metrics=metrics,upstream_counts=counts,upstream_readiness=peer_readiness,upstream_delay_s=.006,offered_queries=COUNT,arrival_interval_s=INTERVAL,elapsed_s=duration,correct=sum(f['status']=='correct' for f in flows),completed_qps=COUNT/duration,latency_p50_s=percentile(latencies,.5),latency_p95_s=percentile(latencies,.95),scheduled_p50_s=percentile([f['finished_s']-f['planned_s'] for f in flows],.5),scheduled_p95_s=percentile([f['finished_s']-f['planned_s'] for f in flows],.95),max_issue_lag_s=max(f['issued_s']-f['planned_s'] for f in flows),baseline_rss=samples[0]['rss'],peak_rss=max(s['rss'] for s in samples),rss_growth=max(s['rss'] for s in samples)-samples[0]['rss'],cpu_seconds=samples[-1]['cpu']-samples[0]['cpu'],max_sample_gap_s=max(b['t']-a['t'] for a,b in zip(samples,samples[1:])))
     finally:
         try:
             if worker is not None:worker.close()
@@ -125,10 +125,10 @@ async def trial(spec):
 def render(r):
     cells=[]
     for t in r['trials']:
-        values=[t['block'],t['protocol'],t['scenario'],t['cache'],str(t['correct'])+'/'+str(COUNT),f"{t['latency_p50_s']*1000:.3f}",f"{t['latency_p95_s']*1000:.3f}",f"{t['completed_qps']:.1f}",sum(sum(p.values()) for p in t['upstream_counts']),f"{t['peak_rss']/1048576:.2f}",f"{t['rss_growth']/1048576:.2f}",f"{t['max_issue_lag_s']*1000:.2f}",f"{t['max_sample_gap_s']*1000:.2f}"]
+        values=[t['block'],t['protocol'],t['scenario'],t['cache'],str(t['correct'])+'/'+str(COUNT),f"{t['latency_p50_s']*1000:.3f}",f"{t['latency_p95_s']*1000:.3f}",f"{t['scheduled_p95_s']*1000:.3f}",f"{t['completed_qps']:.1f}",sum(sum(p.values()) for p in t['upstream_counts']),f"{t['peak_rss']/1048576:.2f}",f"{t['rss_growth']/1048576:.2f}",f"{t['max_issue_lag_s']*1000:.2f}",f"{t['max_sample_gap_s']*1000:.2f}"]
         cells.append('<tr>'+''.join('<td>'+html.escape(str(v))+'</td>' for v in values)+'</tr>')
-    headings=['Block','Transport','Workload','Cache','Correct','p50 ms','p95 ms','Completed QPS','Upstream requests','Peak RSS MiB','RSS growth MiB','Max issue lag ms','Sample gap ms']
-    return '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Tiny DNS Router results</title><style>body{font:16px system-ui;margin:2rem;color:#172b4d}table{border-collapse:collapse;font-size:13px}td,th{padding:.5rem;border-bottom:1px solid #ccc;text-align:left}</style><h1>Tiny DNS Router — measured cache trade-offs</h1><p>'+html.escape(r['environment']['label'])+'</p><p>Same 120 logical queries and planned 3 ms arrival spacing in both cache modes. Fresh proxy/peers each trial; cache starts cold. Upstreams are real local UDP/TCP peers with a configured 6 ms async delay. Failover adds a silent first peer and 30 ms per-upstream deadline. Every result, including failures and generator lag, is retained. QPS is completed work over makespan at this fixed offered load, not maximum server capacity. TCP uses a fresh connection per query. RSS is sampled proxy-process RSS; clients, upstreams, kernel buffers and VM overhead excluded. Three paired blocks, no confidence interval or Internet/production claim.</p><table><thead><tr>'+''.join('<th>'+x+'</th>' for x in headings)+'</tr></thead><tbody>'+''.join(cells)+'</tbody></table></html>\n'
+    headings=['Block','Transport','Workload','Cache','Correct','p50 ms','p95 ms','Scheduled p95 ms','Completed QPS','Upstream requests','Peak RSS MiB','RSS growth MiB','Max issue lag ms','Sample gap ms']
+    return '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Tiny DNS Router results</title><style>body{font:16px system-ui;margin:2rem;color:#172b4d}table{border-collapse:collapse;font-size:13px}td,th{padding:.5rem;border-bottom:1px solid #ccc;text-align:left}</style><h1>Tiny DNS Router — measured cache trade-offs</h1><p>'+html.escape(r['environment']['label'])+'</p><p>Same 120 logical queries and planned 3 ms arrival spacing in both cache modes. Fresh proxy/peers each trial; cache starts cold. Upstreams are real local UDP/TCP peers with a configured 6 ms async delay. Failover adds a silent first peer and 30 ms per-upstream deadline. Every result, including failures and generator lag, is retained. QPS is completed work over makespan at this fixed offered load, not maximum server capacity. TCP uses a fresh connection per query. RSS is sampled proxy-process RSS; clients, upstreams, kernel buffers and VM overhead excluded. Invocation latency excludes generator lag; scheduled p95 includes it. </p><p>Paired blocks: '+str(r['plan']['blocks'])+'. No confidence interval or Internet/production claim.</p><table><thead><tr>'+''.join('<th>'+x+'</th>' for x in headings)+'</tr></thead><tbody>'+''.join(cells)+'</tbody></table></html>\n'
 
 
 def main():
@@ -146,7 +146,10 @@ def main():
             print(json.dumps({k:t[k] for k in ['block','protocol','scenario','cache','correct','latency_p50_s','peak_rss']}),flush=True)
         if r['source_files']!=manifest():raise RuntimeError('source changed during measurements')
         if any(t['correct']!=COUNT for t in r['trials']):raise RuntimeError('incorrect or incomplete trial')
-        r['status']='passed';write();(a.output/'report.html').write_text(render(r))
+        r['status']='passed'
+        from tools.check_report import verify
+        verify(r)
+        write();(a.output/'report.html').write_text(render(r))
     except BaseException as error:
         r.update(status='failed',error_type=type(error).__name__);write();(a.output/'report.html').unlink(missing_ok=True);raise
 

@@ -82,6 +82,7 @@ class Server:
                         if answer.flags & dns.flags.TC:
                             self.stats['tcp_fallbacks']+=1
                             answer=await dns.asyncquery.tcp(uq,u['host'],port=u['port'],timeout=self.cfg['upstream_timeout'])
+                if answer.flags & dns.flags.TC:raise dns.exception.DNSException('truncated TCP response')
                 if not uq.is_response(answer):raise dns.exception.DNSException('mismatched response')
                 answer.id=q.id;answer.question=copy.deepcopy(q.question)
                 return answer

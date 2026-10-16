@@ -12,6 +12,8 @@ FAULTS=[('suffix_label_boundary','dnsrouter/config.py','name.is_subdomain(dns.na
 
 
 def main():
+    FAULTS.append(('accept_truncated_tcp','dnsrouter/service.py',"if answer.flags & dns.flags.TC:raise dns.exception.DNSException('truncated TCP response')",'pass','test_truncated_tcp_response_fails_over_and_is_not_cached'))
+    FAULTS.append(('ignore_wire_byte_budget','dnsrouter/cache.py','self.bytes+len(wire)>self.byte_limit','False','test_negative_expiry_and_wire_byte_eviction_over_live_service'))
     results=[];(ROOT/'results/local').mkdir(parents=True,exist_ok=True)
     for name,file,old,new,method in FAULTS:
         with tempfile.TemporaryDirectory(dir=ROOT/'results/local',prefix='fault-') as td:

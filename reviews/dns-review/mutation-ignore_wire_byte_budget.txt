@@ -1,0 +1,20 @@
+test_negative_expiry_and_wire_byte_eviction_over_live_service (test_network.NetworkTests.test_negative_expiry_and_wire_byte_eviction_over_live_service) ... FAIL
+
+======================================================================
+FAIL: test_negative_expiry_and_wire_byte_eviction_over_live_service (test_network.NetworkTests.test_negative_expiry_and_wire_byte_eviction_over_live_service)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<home>/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "<repo>/results/local/fault-f6546e2c/tests/test_network.py", line 155, in test_negative_expiry_and_wire_byte_eviction_over_live_service
+    self.assertEqual(p.counts['udp']-before,3)
+AssertionError: 2 != 3
+
+----------------------------------------------------------------------
+Ran 1 test in 1.066s
+
+FAILED (failures=1)

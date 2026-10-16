@@ -139,3 +139,64 @@ class NetworkTests(unittest.IsolatedAsyncioTestCase):
             r=await query(s.port,name);self.assertEqual(r.authority[0].ttl,3)
             r2=await query(s.port,name);self.assertLessEqual(r2.authority[0].ttl,3)
         self.assertEqual(p.counts['udp'],2)
+    async def test_negative_expiry_and_wire_byte_eviction_over_live_service(self):
+        p=await self.peer();s=await self.router(config(p.port,ttl_cap=1))
+        for name in ['nx.test.','nodata.test.']:
+            await query(s.port,name);await query(s.port,name)
+        self.assertEqual(p.counts['udp'],2)
+        await asyncio.sleep(1.03)
+        for name in ['nx.test.','nodata.test.']:await query(s.port,name)
+        self.assertEqual(p.counts['udp'],4);self.assertEqual(s.cache.expired,2)
+        from tools.upstream import answer
+        size=len(answer(dns.message.make_query('one.test.','A')).to_wire())
+        bounded=await self.router(config(p.port,cache_entries=10,cache_bytes=2*size-1))
+        before=p.counts['udp']
+        for name in ['one.test.','two.test.','one.test.']:await query(bounded.port,name)
+        self.assertEqual(p.counts['udp']-before,3)
+        self.assertEqual(bounded.cache.evictions,2);self.assertEqual(len(bounded.cache.items),1)
+        self.assertEqual(bounded.cache.bytes,size);self.assertLessEqual(bounded.cache.peak_bytes,2*size-1)
+    async def test_cname_lifetime_and_query_flag_partition_live(self):
+        p=await self.peer();s=await self.router(config(p.port))
+        clock=[100.];s.cache.clock=lambda:clock[0]
+        r=await query(s.port,'alias.test.');self.assertEqual([rr.ttl for rr in r.answer],[2,120])
+        clock[0]+=1.1;r=await query(s.port,'alias.test.')
+        self.assertEqual([rr.ttl for rr in r.answer],[0,118]);self.assertEqual(p.counts['udp'],1)
+        clock[0]=102.;await query(s.port,'alias.test.');self.assertEqual(p.counts['udp'],2)
+        q=dns.message.make_query('alias.test.','A');q.flags|=dns.flags.CD
+        await dns.asyncquery.udp(q,'127.0.0.1',port=s.port,timeout=1)
+        self.assertEqual(p.counts['udp'],3)
+    async def test_udp_fallback_shares_one_upstream_deadline(self):
+        slow=await self.peer(delay=.07,truncate=True);good=await self.peer(marker=30)
+        s=await self.router(config(good.port,upstream_timeout=.12,routes=[dict(suffix='.',upstreams=[dict(host='127.0.0.1',port=p.port) for p in [slow,good]])]))
+        r=await query(s.port)
+        self.assertEqual(r.answer[0][0].to_text(),'192.0.2.30')
+        self.assertEqual(slow.counts,dict(udp=1,tcp=1));self.assertEqual(good.counts,dict(udp=1,tcp=0))
+        self.assertEqual(s.stats['upstream_timeouts'],1);self.assertEqual(s.stats['tcp_fallbacks'],1)
+        self.assertEqual(s.stats['upstream_attempts'],2)
+    async def test_truncated_tcp_response_fails_over_and_is_not_cached(self):
+        class TruncatedPeer(ReferenceServer):
+            async def respond(self,wire,protocol):
+                data=await super().respond(wire,protocol)
+                r=dns.message.from_wire(data);r.flags|=dns.flags.TC
+                return r.to_wire()
+        bad=TruncatedPeer();await bad.start();self.resources.append(bad)
+        good=await self.peer(marker=30)
+        s=await self.router(config(good.port,cache_entries=0,routes=[dict(suffix='.',upstreams=[dict(host='127.0.0.1',port=p.port) for p in [bad,good]])]))
+        for tcp in [False,True]:
+            r=await query(s.port,tcp=tcp)
+            self.assertFalse(r.flags & dns.flags.TC)
+            self.assertEqual(r.answer[0][0].to_text(),'192.0.2.30')
+        self.assertEqual(s.stats['upstream_errors'],2);self.assertEqual(s.stats['upstream_attempts'],4)
+        self.assertEqual(s.stats['tcp_fallbacks'],1)
+    async def test_forced_tcp_shutdown_accounts_admitted_request(self):
+        p=await self.peer(drop=True);s=await self.router(config(p.port,upstream_timeout=1.,drain_timeout=.02))
+        t=asyncio.create_task(query(s.port,tcp=True))
+        for _ in range(100):
+            if s.stats['active']:break
+            await asyncio.sleep(.002)
+        self.assertEqual(s.stats['active'],1)
+        await asyncio.wait_for(s.close(),.5)
+        with self.assertRaises((EOFError,OSError,dns.exception.DNSException)):await t
+        self.assertEqual(s.stats['requests'],1);self.assertEqual(s.stats['cancelled'],1)
+        self.assertEqual(s.stats['completed'],0);self.assertEqual(s.stats['active'],0)
+        self.assertEqual(s.stats['tcp_connections'],0)

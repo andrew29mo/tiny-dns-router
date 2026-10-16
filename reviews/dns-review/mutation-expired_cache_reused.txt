@@ -1,0 +1,21 @@
+test_live_ttl_expiry_negative_and_uncacheable (test_network.NetworkTests.test_live_ttl_expiry_negative_and_uncacheable) ... FAIL
+
+======================================================================
+FAIL: test_live_ttl_expiry_negative_and_uncacheable (test_network.NetworkTests.test_live_ttl_expiry_negative_and_uncacheable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<home>/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "<repo>/results/local/fault-ted2m352/tests/test_network.py", line 37, in test_live_ttl_expiry_negative_and_uncacheable
+    await asyncio.sleep(1.02);await query(s.port);self.assertEqual(p.counts['udp'],2)
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 2
+
+----------------------------------------------------------------------
+Ran 1 test in 1.038s
+
+FAILED (failures=1)
