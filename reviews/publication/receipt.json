@@ -49,6 +49,39 @@
   "license_sha256": "0a5f48c5847660a83b6372cf47ef20c88bc20a0ae051dcc623707d081d8ad504",
   "security_settings_sha256": "76a91c00d75da85546db35e9eeea9e056accf3cbb4ca493408736f8dcb68793d",
   "historical_private_status": "Historical license/review/validation receipts retain their state at the time; current README and platform summary describe Public status",
-  "hosted_ci": "Check current publication commit separately; previous private run was billing-blocked. Local evidence does not imply hosted success.",
-  "anonymous_read": "Verified separately after publishing the documentation commit"
+  "hosted_ci": {
+    "run_id": 38870557268,
+    "url": "https://github.com/andrew29mo/tiny-dns-router/actions/runs/38870557268",
+    "head_sha": "5001b5823baed5f41096902784fefcdcc93567cb",
+    "status": "success",
+    "jobs": [
+      {
+        "name": "test (ubuntu-latest)",
+        "conclusion": "success",
+        "executed_steps": 10,
+        "verified_successful_commands": [
+          "python -m unittest discover",
+          "python -m tools.check_report",
+          "python -m tools.findings --check"
+        ]
+      },
+      {
+        "name": "test (macos-latest)",
+        "conclusion": "success",
+        "executed_steps": 10,
+        "verified_successful_commands": [
+          "python -m unittest discover",
+          "python -m tools.check_report",
+          "python -m tools.findings --check"
+        ]
+      }
+    ]
+  },
+  "anonymous_read": {
+    "verified": true,
+    "commit": "5001b5823baed5f41096902784fefcdcc93567cb",
+    "files": 8,
+    "proof": "post-publication.json"
+  },
+  "post_publication_sha256": "ab762f374cc875e0843c99acea569f44c87c2c38fb35fb839e545d59f496afd2"
 }

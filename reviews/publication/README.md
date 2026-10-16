@@ -22,6 +22,14 @@ run was billing-blocked; hosted CI for the publication commit is checked separat
 at the [workflow](https://github.com/andrew29mo/tiny-dns-router/actions/workflows/ci.yml).
 Passing local evidence is not treated as proof a hosted job executed.
 
+Post-publication verification confirmed anonymous HTTP 200 and exact byte hashes
+for README, MIT, metadata and both platforms' report JSON/HTML. The actual
+[publication CI run](https://github.com/andrew29mo/tiny-dns-router/actions/runs/38870557268)
+at `5001b58` passed both Linux/macOS jobs, with 10 executed steps each and explicit
+successful unittest/report/README checks. See
+[anonymous and CI verification](post-publication.json). Any later evidence-only
+commit retains the same runtime/test/tool/metadata sources.
+
 ## Security settings
 
 [Observed configuration](security-settings.json):

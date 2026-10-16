@@ -1,0 +1,76 @@
+{
+  "generated_utc": "2026-10-16T07:59:43.463695+00:00",
+  "verified_commit": "5001b5823baed5f41096902784fefcdcc93567cb",
+  "anonymous": true,
+  "repository_page_http_status": 200,
+  "public": true,
+  "github_license": "MIT",
+  "files": {
+    "README.md": {
+      "http_status": 200,
+      "sha256": "6f5584a564ee17dba7b69e0025708236d03c44589f9356707fabac2e30d3c0f5"
+    },
+    "LICENSE": {
+      "http_status": 200,
+      "sha256": "0a5f48c5847660a83b6372cf47ef20c88bc20a0ae051dcc623707d081d8ad504"
+    },
+    "pyproject.toml": {
+      "http_status": 200,
+      "sha256": "1686260e15b49fd6b71dc6902dfb6d33f285a1a016f50bb2d213565738971e96"
+    },
+    "reviews/local-validation/README.md": {
+      "http_status": 200,
+      "sha256": "43198646640ade159ef88ca2dff6f79731de5b576e5b49399ec8d81fc849aa73"
+    },
+    "reviews/local-validation/native/benchmark/report.json": {
+      "http_status": 200,
+      "sha256": "0a9a31edc4100498dec30e17d145842c3426b289d3ed0d2dcc41ff58dbc28c27"
+    },
+    "reviews/local-validation/native/benchmark/report.html": {
+      "http_status": 200,
+      "sha256": "697d898a175c92477f8878878262cd65099e5b960186cdac75d9a248b50dd99e"
+    },
+    "reviews/local-validation/linux/benchmark/report.json": {
+      "http_status": 200,
+      "sha256": "24f1b64ef2a8aef4eac3f96ea96e4853d5f1eee67565703c17f923fc11766873"
+    },
+    "reviews/local-validation/linux/benchmark/report.html": {
+      "http_status": 200,
+      "sha256": "f3ca3931de5b71ff366b956f383b9f582cc2f010e3f7a06ad9c077cceccceb8d"
+    }
+  },
+  "hosted_ci": {
+    "run_id": 38870557268,
+    "url": "https://github.com/andrew29mo/tiny-dns-router/actions/runs/38870557268",
+    "head_sha": "5001b5823baed5f41096902784fefcdcc93567cb",
+    "status": "success",
+    "jobs": [
+      {
+        "name": "test (ubuntu-latest)",
+        "conclusion": "success",
+        "executed_steps": 10,
+        "verified_successful_commands": [
+          "python -m unittest discover",
+          "python -m tools.check_report",
+          "python -m tools.findings --check"
+        ]
+      },
+      {
+        "name": "test (macos-latest)",
+        "conclusion": "success",
+        "executed_steps": 10,
+        "verified_successful_commands": [
+          "python -m unittest discover",
+          "python -m tools.check_report",
+          "python -m tools.findings --check"
+        ]
+      }
+    ]
+  },
+  "scope": "Anonymous public reads and byte identity at the publication commit; hosted CI steps executed. Source/test/tool metadata unchanged from retained local dual-platform evidence.",
+  "effective_main_rule_types": [
+    "deletion",
+    "non_fast_forward",
+    "required_status_checks"
+  ]
+}
