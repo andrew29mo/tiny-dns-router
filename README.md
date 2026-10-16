@@ -106,6 +106,11 @@ See [measurement protocol](docs/MEASUREMENT.md) and [validation evidence](review
 This grid compares this implementation with caching disabled/enabled. It is not
 an independent resolver comparison or a benchmark against CoreDNS/Unbound.
 
+The [first hosted CI run](https://github.com/andrew29mo/tiny-dns-router/actions/runs/38863471472)
+was blocked by GitHub account billing/spending restrictions before any steps ran
+on Linux or macOS. Native macOS validation is retained; hosted success and local
+Linux validation are not claimed.
+
 ## Status and license
 
 Private MVP. No project open-source license selected. Dependencies retain their

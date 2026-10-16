@@ -37,3 +37,9 @@ overlapping requests can independently reach the upstream.
 Hosted Linux/macOS CI is configured separately; no success is inferred from
 this native macOS evidence. No native Linux or container test run is claimed
 by this receipt. Project licensing is not selected; GitHub remains Private.
+
+Observed hosted run for initial commit `0a6fc55`:
+[38863471472](https://github.com/andrew29mo/tiny-dns-router/actions/runs/38863471472).
+Both jobs were blocked by account billing/spending restrictions and executed
+zero steps. Detailed account annotations remain local; this is not a test failure
+of an executed Linux/macOS job, nor evidence that those jobs passed.
