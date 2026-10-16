@@ -1,0 +1,30 @@
+[
+  {
+    "fault": "timeout",
+    "result": "rejected"
+  },
+  {
+    "fault": "container_exit",
+    "result": "rejected"
+  },
+  {
+    "fault": "cleanup",
+    "result": "rejected"
+  },
+  {
+    "fault": "source_binding",
+    "result": "rejected"
+  },
+  {
+    "fault": "missing_platform",
+    "result": "rejected"
+  },
+  {
+    "fault": "log_hash",
+    "result": "rejected"
+  },
+  {
+    "fault": "missing_trials",
+    "result": "rejected"
+  }
+]

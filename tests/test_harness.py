@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 import sys
 import tempfile
@@ -22,7 +23,7 @@ class HarnessTests(unittest.TestCase):
         with self.assertRaises(AssertionError):p.close()
     def test_invalid_ledger_cannot_publish_passed_report(self):
         import copy
-        r=json.loads(Path('results/native-macos/report.json').read_text())
+        r=json.loads((Path(os.environ.get('DNSROUTER_TEST_REPORT','results/native-macos'))/'report.json').read_text())
         rows=copy.deepcopy(r['trials'][:12]);rows[0]['proxy_metrics']['upstream_errors']=999
         with tempfile.TemporaryDirectory() as tmp:
             with patch.object(sys,'argv',['benchmark','--output',tmp,'--blocks','1','--label','failure-fixture']),patch.object(benchmark,'trial',new=AsyncMock(side_effect=rows)):

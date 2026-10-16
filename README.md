@@ -75,6 +75,21 @@ reject missing trials, forged answers/resources, changed config and stale source
 Mutation tests deliberately break production behavior and require actual network
 assertions to fail. Expected mutation failures are not release-test failures.
 
+## Local cross-platform validation
+
+On macOS with the project Python 3.12 environment and Docker CLI:
+
+```sh
+./tools/validate-local
+```
+
+This runs the same frozen implementation on native macOS and in Colima Linux,
+retaining formal tests, separate complete measurements and cleanup evidence.
+Colima/Lima install automatically from checksum-pinned official releases.
+[Workflow and limits](docs/LOCAL_VALIDATION.md) ·
+[Retained platform evidence](reviews/local-validation/README.md).
+Linux VM performance/RSS is reported separately from native macOS.
+
 ## Measured results
 
 <!-- measured:start -->
@@ -85,20 +100,20 @@ Values below are medians across all three blocks, not confidence intervals.
 
 | Transport | Workload | Cache | p50 ms | p95 ms | Completed QPS | Upstream queries | Peak RSS MiB |
 |---|---|---|---:|---:|---:|---:|---:|
-| udp | repeat | off | 7.457 | 9.145 | 327.6 | 120 | 29.94 |
-| udp | repeat | on | 0.749 | 1.926 | 334.4 | 4 | 29.89 |
-| udp | unique | off | 7.579 | 8.912 | 327.8 | 120 | 29.98 |
-| udp | unique | on | 7.556 | 8.650 | 327.3 | 120 | 29.97 |
-| udp | failover | off | 37.779 | 39.621 | 302.2 | 240 | 30.19 |
-| udp | failover | on | 0.675 | 38.641 | 334.9 | 32 | 30.06 |
-| tcp | repeat | off | 7.621 | 9.003 | 327.4 | 120 | 29.94 |
-| tcp | repeat | on | 0.883 | 1.982 | 334.6 | 4 | 29.95 |
-| tcp | unique | off | 7.676 | 8.909 | 327.7 | 120 | 29.83 |
-| tcp | unique | on | 7.669 | 9.117 | 327.6 | 120 | 29.94 |
-| tcp | failover | off | 37.804 | 39.409 | 302.6 | 240 | 30.09 |
-| tcp | failover | on | 0.862 | 39.043 | 335.0 | 32 | 30.12 |
+| udp | repeat | off | 7.371 | 8.191 | 328.8 | 120 | 29.94 |
+| udp | repeat | on | 0.645 | 1.195 | 335.1 | 4 | 29.88 |
+| udp | unique | off | 7.404 | 8.494 | 328.1 | 120 | 29.91 |
+| udp | unique | on | 7.319 | 8.236 | 328.1 | 120 | 29.94 |
+| udp | failover | off | 37.536 | 38.653 | 303.3 | 240 | 29.98 |
+| udp | failover | on | 0.706 | 38.162 | 335.3 | 32 | 30.02 |
+| tcp | repeat | off | 7.462 | 8.721 | 328.6 | 120 | 29.92 |
+| tcp | repeat | on | 0.738 | 1.629 | 335.2 | 4 | 29.98 |
+| tcp | unique | off | 7.408 | 8.068 | 328.5 | 120 | 29.91 |
+| tcp | unique | on | 7.456 | 8.296 | 328.2 | 120 | 29.95 |
+| tcp | failover | off | 37.706 | 38.716 | 303.5 | 240 | 30.14 |
+| tcp | failover | on | 0.739 | 37.899 | 335.2 | 32 | 30.11 |
 
-Correct responses: 4320/4320. Maximum client issue lag: 2.48 ms; maximum RSS sample gap: 12.31 ms.
+Correct responses: 4320/4320. Maximum client issue lag: 2.36 ms; maximum RSS sample gap: 12.55 ms.
 
 Completed QPS reflects this fixed offered load, not maximum service capacity.
 RSS covers only the sampled proxy process. These data do not establish Internet latency,
@@ -106,14 +121,15 @@ native Linux performance, universal cache benefit or superiority over CoreDNS/Un
 [JSON](results/native-macos/report.json) · [HTML](results/native-macos/report.html)
 <!-- measured:end -->
 
-See [measurement protocol](docs/MEASUREMENT.md) and [current review evidence](reviews/dns-review/README.md).
+See [measurement protocol](docs/MEASUREMENT.md) and [current platform evidence](reviews/local-validation/README.md).
+The [earlier correctness review](reviews/dns-review/README.md) is retained with its historical results.
 This grid compares this implementation with caching disabled/enabled. It is not
 an independent resolver comparison or a benchmark against CoreDNS/Unbound.
 
 The [first hosted CI run](https://github.com/andrew29mo/tiny-dns-router/actions/runs/38863471472)
 was blocked by GitHub account billing/spending restrictions before any steps ran
-on Linux or macOS. Native macOS validation is retained; hosted success and local
-Linux validation are not claimed.
+on Linux or macOS. Native macOS validation is retained; hosted success is not claimed. Separate local Linux-container validation
+is recorded above; it is not a substitute claim of hosted CI or native Linux hardware.
 
 ## Status and license
 

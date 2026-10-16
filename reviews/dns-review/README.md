@@ -1,4 +1,8 @@
-# DNS correctness and measurement review
+# Historical DNS correctness and measurement review
+
+This receipt covers `2b88616`. Its unchanged reports are preserved in
+`results/historical-dns-review-2b88616/`; current cross-platform evidence is in
+`reviews/local-validation/`.
 
 This review checks the production UDP/TCP forwarding path, bounded cache,
 shutdown behavior, workload provenance and complete report accounting.

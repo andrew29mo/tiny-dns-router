@@ -1,5 +1,6 @@
 import copy
 import json
+import os
 from pathlib import Path
 import unittest
 import dns.exception
@@ -9,10 +10,10 @@ from tools.check_report import verify
 
 class ReportTests(unittest.TestCase):
     @classmethod
-    def setUpClass(cls):cls.report=json.loads(Path('results/native-macos/report.json').read_text())
+    def setUpClass(cls):cls.report=json.loads((Path(os.environ.get('DNSROUTER_TEST_REPORT','results/native-macos'))/'report.json').read_text())
     def test_complete_production_report(self):
         self.assertEqual(verify(self.report),36)
-        self.assertEqual(render(self.report),Path('results/native-macos/report.html').read_text())
+        self.assertEqual(render(self.report),(Path(os.environ.get('DNSROUTER_TEST_REPORT','results/native-macos'))/'report.html').read_text())
     def test_missing_block_and_reordered_rows_rejected(self):
         for change in ['block','order']:
             r=copy.deepcopy(self.report)
